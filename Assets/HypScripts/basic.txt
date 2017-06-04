@@ -1,0 +1,11 @@
+Advances forward to attack characters in front, move clockwise otherwise.
+main: ENF attack ESP advance search attack: ATK main advance: MOV main search: RGT MOV main
+
+Advances forward to attack characters in front hits side characters along the way.
+main: ENF attack ENL leftattack ENR rightattack ESP advance search attack: ATK main leftattack: LFT ATK RGT main rightattack: RGT ATK LFT main advance: MOV main search: RGT MOV main
+
+Moves randomly and charges if it sees anything
+main: ENF attack ESP charge RDM charge: MOV main attack: ATK main
+
+Moves randomly before tracking target down and killing it
+main: ENF attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDM main remember: SEE main attack: ATK main seekFront: MOV main seekLeft: LFT main seekRight: RGT main seekBack: FLP main
