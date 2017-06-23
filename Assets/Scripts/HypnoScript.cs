@@ -25,7 +25,9 @@ public class HypnoScript : MonoBehaviour {
         nest = new List<int>();
         target = null;
         broken = false;
-	}
+        nest.Add(0);
+        indices.Add(1);
+    }
 
     public void addToScript(string newAction) {
         int subToAdd = 0;
@@ -77,24 +79,33 @@ public class HypnoScript : MonoBehaviour {
         }
 
         //Prevent stack overflows by limiting the nesting.
-        if(nest.Count >= 1000) {
+        if (nest.Count >= 1000 || nest.Count == 0) {
+            broken = true;
             return "malfunction";
         }
 
-        if(nest.Count == 0) {
+        /*if(nest.Count == 0) {
             nest.Add(0);
             indices.Add(1);
-        }
+        }*/
 
         if(indices[indices.Count -1] >= actions[nest[nest.Count - 1]].Count) {
-            nest.RemoveAt(nest.Count - 1);
-            indices.RemoveAt(indices.Count - 1);
+            broken = true;
             return nextAction();
         }else {
             string command = actions[nest[nest.Count - 1]][indices[indices.Count -1]];
+            if(command.ToUpper().Equals("RTN")) {
+                nest.RemoveAt(nest.Count - 1);
+                indices.RemoveAt(indices.Count - 1);
+                return nextAction();
+            }
             if(getSubNum(command+":") > -1) {
-                nest.Add(getSubNum(command+":"));
                 indices[indices.Count - 1]++;
+                if (indices[indices.Count - 1] >= actions[nest[nest.Count - 1]].Count) {
+                    nest.RemoveAt(nest.Count - 1);
+                    indices.RemoveAt(indices.Count - 1);
+                }
+                nest.Add(getSubNum(command + ":"));
                 indices.Add(1);
                 return nextAction();
             }else if (isCondition(command)) {
@@ -131,6 +142,8 @@ public class HypnoScript : MonoBehaviour {
             indices[i] = 1;
         }
         nest = new List<int>();
+        nest.Add(0);
+        indices.Add(1);
         direction = "right";
         broken = false;
     }
