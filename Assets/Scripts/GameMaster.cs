@@ -15,7 +15,7 @@ public class GameMaster : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        GameMaster.fps = 10;
+        GameMaster.fps = 16;
         myField = fieldObject.GetComponent<Field>();
         characters = new List<Character>();
         started = false;
@@ -45,9 +45,9 @@ public class GameMaster : MonoBehaviour {
         return (x <= endColumn() && x >= startColumn() && y <= startRow() && y >= endRow());
     }
 
-    public static bool playerAtSpace(int x, int y) {
+    public static bool enemyAtSpace(int x, int y, int team) {
         for (int i = 0; i < characters.Count; i++) {
-            if (characters[i].getX() == x && characters[i].getY() == y && characters[i].alive) {
+            if (characters[i].getX() == x && characters[i].getY() == y && characters[i].alive && characters[i].team != team) {
                 return true;
             }
         }
@@ -67,12 +67,13 @@ public class GameMaster : MonoBehaviour {
         return true;
     }
 
-    public static void attackSpace(int x, int y) {
+    public static void attackSpace(int attack, int x, int y) {
         int i;
         for (i = 0; i < characters.Count; i++) {
             if(characters[i].getX() == x && characters[i].getY() == y) {
+                
                 if (characters[i].alive) {
-                    characters[i].die();
+                    characters[i].die(attack);
                 }else {
                     //Destroy(characters[i].gameObject);
                     //characters.RemoveAt(i);
@@ -139,16 +140,29 @@ public class GameMaster : MonoBehaviour {
     public static List<GameObject> selectAllPlayers() {
         List<GameObject> allPlayers = new List<GameObject>();
         for(int i = 0; i < characters.Count; i++) {
-            characters[i].Deselect();
-            characters[i].Select();
-            allPlayers.Add(characters[i].gameObject);
+            if (characters[i].alive) {
+                characters[i].Select();
+                allPlayers.Add(characters[i].gameObject);
+            }
         }
         return allPlayers;
+    }
+
+    public static List<GameObject> selectTeam(int t) {
+        List<GameObject> teamPlayers = new List<GameObject>();
+        for (int i = 0; i < characters.Count; i++) {
+            if (characters[i].alive && characters[i].team == t) {
+                characters[i].Select();
+                teamPlayers.Add(characters[i].gameObject);
+            }
+        }
+        return teamPlayers;
     }
 
     public static void deleteCharacters() {
         for(int i = characters.Count-1; i >= 0; i--) {
             if (characters[i].isSelected()) {
+                characters[i].GetComponent<CharacterAnimation>().deleteBars();
                 Destroy(characters[i].gameObject);
                 characters.RemoveAt(i);
             }

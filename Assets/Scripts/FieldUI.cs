@@ -22,8 +22,7 @@ public class FieldUI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        GameMaster.fps = (int)Math.Round(fpsSlider.value);
-        fpsText.text = (int)Math.Round(fpsSlider.value) + " FPS";
+        fpsText.text = GameMaster.fps + "FPS";
         if(selected.Count > 0) {
             commandList.text = selected[selected.Count - 1].GetComponent<HypnoScript>().getCommands();
             //selection.transform.position = selected.transform.position;
@@ -65,7 +64,7 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Delete) && selected.Count > 0) {
             if(GameMaster.started) {
                 for (int i = 0; i < selected.Count; i++) {
-                    selected[i].GetComponent<Character>().die();
+                    selected[i].GetComponent<Character>().die(10000);
                 }
             }else {
                 GameMaster.deleteCharacters();
@@ -83,9 +82,40 @@ public class FieldUI : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.Q) && !GameMaster.started) {
-            rotateCharacterLeft((int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x), (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y));
+            for (int i = 0; i < selected.Count; i++) {
+                selected[i].GetComponent<HypnoScript>().rotateLeft();
+            }
         }else if (Input.GetKeyDown(KeyCode.E) && !GameMaster.started) {
-            rotateCharacterRight((int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x), (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y));
+            for (int i = 0; i < selected.Count; i++) {
+                selected[i].GetComponent<HypnoScript>().rotateRight();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && GameMaster.fps > 1) {
+            GameMaster.fps /= 2;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) && GameMaster.fps < 512) {
+            GameMaster.fps *= 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            if (selected.Count == 0) {
+                selected = GameMaster.selectTeam(1);
+            }
+            else {
+                for (int i = 0; i < selected.Count; i++) {
+                    selected[i].GetComponent<Character>().setTeam(1);
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
+            if (selected.Count == 0) {
+                selected = GameMaster.selectTeam(2);
+            }
+            else {
+                for (int i = 0; i < selected.Count; i++) {
+                    selected[i].GetComponent<Character>().setTeam(2);
+                }
+            }
         }
     }
 
@@ -113,7 +143,7 @@ public class FieldUI : MonoBehaviour {
         scriptingEnabled = false;
     }
 
-    public void rotateCharacterLeft(int x, int y) {
+    /*public void rotateCharacterLeft(int x, int y) {
         HypnoScript character;
         GameObject obj = GameMaster.objectAtSpace(x, y);
         if(obj != null) {
@@ -129,5 +159,5 @@ public class FieldUI : MonoBehaviour {
             character = obj.GetComponent<HypnoScript>();
             character.rotateRight();
         }
-    }
+    }*/
 }

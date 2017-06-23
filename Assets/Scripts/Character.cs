@@ -5,19 +5,32 @@ using System;
 
 public class Character : MonoBehaviour {
 
-    public int frame;
-    public int health;
-    public int damage;
+    private int frame;
+    public int maxHealth;
+    private int health;
+    public int attack;
+    public int defense;
+    private int stamina;
+    public int maxStamina;
+    public int speed;
+    private int speedstack;
     public bool alive;
     public string action;
-    public Transform selectionPrefab;
+    public Transform selectionPrefab1;
+    public Transform selectionPrefab2;
     private Transform selectionCircle;
     float displacedX, displacedY;
+    public int team;
 
     private int originalX;
     private int originalY;
 
 	void Start () {
+        selectionCircle = null;
+        team = 1;
+        health = maxHealth;
+        stamina = maxStamina;
+        speedstack = speed;
         action = "nothing";
         alive = true;
         frame = 0;
@@ -29,13 +42,13 @@ public class Character : MonoBehaviour {
 
 	void Update () {
         if(selectionCircle != null) {
-            selectionCircle.position = transform.position;
+            selectionCircle.position = new Vector3(transform.position.x, transform.position.y, transform.position.z+0.05f);
         }
     }
 
     public string nextState() {
         string newState = GetComponent<HypnoScript>().nextAction();
-        setAction(newState);
+        //setAction(newState);
         return newState;
     }
 
@@ -68,19 +81,19 @@ public class Character : MonoBehaviour {
             }
         }
         else if (state.Equals("attackRight")) {
-            GameMaster.attackSpace(getX() + 1, getY());
+            GameMaster.attackSpace(attack, getX() + 1, getY());
             action = "attackRight";
         }
         else if (state.Equals("attackLeft")) {
-            GameMaster.attackSpace(getX() - 1, getY());
+            GameMaster.attackSpace(attack, getX() - 1, getY());
             action = "attackLeft";
         }
         else if (state.Equals("attackUp")) {
-            GameMaster.attackSpace(getX(), getY() + 1);
+            GameMaster.attackSpace(attack, getX(), getY() + 1);
             action = "attackUp";
         }
         else if (state.Equals("attackDown")) {
-            GameMaster.attackSpace(getX(), getY() - 1);
+            GameMaster.attackSpace(attack, getX(), getY() - 1);
             action = "attackDown";
         }else if (state.Equals("malfunction")) {
             action = "malfunction";
@@ -187,9 +200,15 @@ public class Character : MonoBehaviour {
         //return (GameMaster.spaceIsClear((int)(transform.position.x + dx), (int)(transform.position.y - 0.1 + dy)) || ((int)(transform.position.x + dx) == getX() && (int)(transform.position.y - 0.1 + dy) == getY()));
     }
     
-    public void die() {
-        alive = false;
-        Deselect();
+    public void die(int damage) {
+        if (damage >= health) {
+            health = 0;
+            stamina = 0;
+            alive = false;
+            Deselect();
+        }else {
+            health -= damage;
+        }
     }
 
     public void resetCharacter() {
@@ -199,10 +218,17 @@ public class Character : MonoBehaviour {
         GetComponent<CharacterAnimation>().setAnimRunning(false);
         frame = 0;
         action = "nothing";
+        health = maxHealth;
+        stamina = maxStamina;
     }
 
     public void Select() {
-        selectionCircle = Instantiate(selectionPrefab);
+        Deselect();
+        if(team == 1)
+            selectionCircle = Instantiate(selectionPrefab1);
+        else if(team == 2) {
+            selectionCircle = Instantiate(selectionPrefab2);
+        }
     }
 
     public void Deselect() {
@@ -214,5 +240,30 @@ public class Character : MonoBehaviour {
 
     public Boolean isSelected() {
         return (selectionCircle != null);
+    }
+
+    public void stackSpeed() {
+        speedstack += speed;
+    }
+
+    public void unstackSpeed() {
+        speedstack = 0;
+    }
+
+    public int getSpeed() {
+        return speedstack;
+    }
+
+    public float percentHealth() {
+        return health * 1.0f / maxHealth;
+    }
+
+    public float percentStamina() {
+        return stamina * 1.0f / maxStamina;
+    }
+
+    public void setTeam(int t) {
+        team = t;
+        Select();
     }
 }

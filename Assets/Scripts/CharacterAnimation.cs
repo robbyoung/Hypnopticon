@@ -29,6 +29,10 @@ public class CharacterAnimation : MonoBehaviour {
     public Sprite[] turnDownLeft;
     public Sprite[] turnLeftUp;
     public Sprite[] malfunction;
+    public Transform healthBarPrefab;
+    public Transform staminaBarPrefab;
+    private Transform healthBar;
+    private Transform staminaBar;
     private string state;
     private HypnoScript hyp;
     private Character character;
@@ -51,7 +55,8 @@ public class CharacterAnimation : MonoBehaviour {
         lastIndex = -1;
 
         //Remove these once animations have been added.
-        //moveLeft = moveRight;
+        moveLeft = idleLeft;
+        moveRight = idleRight;
         moveUp = idleUp;
         moveDown = idleDown;
         //idleLeft = idleRight;
@@ -60,6 +65,8 @@ public class CharacterAnimation : MonoBehaviour {
         //attackLeft = attackRight;
         attackUp = idleUp;
         attackDown = idleDown;
+        attackLeft = idleLeft;
+        attackRight = idleRight;
         //deathUp = deathRight;
         //deathDown = deathRight;
         turnUpRight = idleRight;
@@ -73,6 +80,10 @@ public class CharacterAnimation : MonoBehaviour {
         idle = true;
         moving = false;
         animRunning = false;
+        healthBar = Instantiate(healthBarPrefab);
+        staminaBar = Instantiate(staminaBarPrefab);
+        healthBar.transform.position = gameObject.transform.position;
+        staminaBar.transform.position = gameObject.transform.position;
     }
 
     void Update() {
@@ -218,6 +229,10 @@ public class CharacterAnimation : MonoBehaviour {
             lastIndex = frameIndex;
             
         }
+        healthBar.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.05f);
+        staminaBar.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 0.05f);
+        healthBar.transform.localScale = new Vector3(gameObject.GetComponent<Character>().percentHealth(), 1, 1);
+        staminaBar.transform.localScale = new Vector3(gameObject.GetComponent<Character>().percentStamina(), 1, 1);
     }
 
     public void setState() {
@@ -280,12 +295,17 @@ public class CharacterAnimation : MonoBehaviour {
         malfunction[0] = idleRight[UnityEngine.Random.Range(0, 10)];
         malfunction[1] = attackUp[UnityEngine.Random.Range(0, 10)];
         malfunction[2] = idleDown[UnityEngine.Random.Range(0, 10)];
-        malfunction[3] = attackLeft[UnityEngine.Random.Range(0, 10)];
-        malfunction[4] = moveUp[UnityEngine.Random.Range(0, 10)];
-        malfunction[5] = attackRight[UnityEngine.Random.Range(0, 10)];
-        malfunction[6] = moveDown[UnityEngine.Random.Range(0, 10)];
+        malfunction[3] = idleLeft[UnityEngine.Random.Range(0, 10)];
+        malfunction[4] = idleRight[UnityEngine.Random.Range(0, 10)];
+        malfunction[5] = idleUp[UnityEngine.Random.Range(0, 10)];
+        malfunction[6] = idleDown[UnityEngine.Random.Range(0, 10)];
         malfunction[7] = idleLeft[UnityEngine.Random.Range(0, 10)];
-        malfunction[8] = turnDownLeft[UnityEngine.Random.Range(0, 10)];
-        malfunction[9] = turnUpLeft[UnityEngine.Random.Range(0, 10)];
+        malfunction[8] = idleRight[UnityEngine.Random.Range(0, 10)];
+        malfunction[9] = idleUp[UnityEngine.Random.Range(0, 10)];
+    }
+
+    public void deleteBars() {
+        GameObject.Destroy(healthBar.gameObject);
+        GameObject.Destroy(staminaBar.gameObject);
     }
 }

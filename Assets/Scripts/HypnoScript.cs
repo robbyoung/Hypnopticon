@@ -11,6 +11,7 @@ public class HypnoScript : MonoBehaviour {
     private Character character;
     private CharacterAnimation charAnim;
     private Character target;
+    private bool broken;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +24,7 @@ public class HypnoScript : MonoBehaviour {
         charAnim = GetComponent<CharacterAnimation>();
         nest = new List<int>();
         target = null;
+        broken = false;
 	}
 
     public void addToScript(string newAction) {
@@ -70,7 +72,7 @@ public class HypnoScript : MonoBehaviour {
         if(target != null && !target.alive) {
             target = null;
         }
-        if(actions[0].Count == 1) {
+        if(actions[0].Count == 1 || broken) {
             return "malfunction";
         }
 
@@ -130,6 +132,7 @@ public class HypnoScript : MonoBehaviour {
         }
         nest = new List<int>();
         direction = "right";
+        broken = false;
     }
 
     //Translate a command from what the player types to a state keyword.
@@ -235,7 +238,7 @@ public class HypnoScript : MonoBehaviour {
             }else {
                 int [] coords = getFront();
                 while (GameMaster.withinField(coords[0], coords[1]) && target == null) {
-                    if (GameMaster.playerAtSpace(coords[0], coords[1])) {
+                    if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam())) {
                             target = GameMaster.objectAtSpace(coords[0], coords[1]).GetComponent<Character>();
                     }else {
                         coords = getFront(coords);
@@ -279,22 +282,22 @@ public class HypnoScript : MonoBehaviour {
         }
         else if (cond.Equals("ENL")) {
             coords = getLeft();
-            return GameMaster.playerAtSpace(coords[0], coords[1]);
+            return GameMaster.enemyAtSpace(coords[0], coords[1], getTeam());
         }
         else if (cond.Equals("ENR")) {
             coords = getRight();
-            return GameMaster.playerAtSpace(coords[0], coords[1]);
+            return GameMaster.enemyAtSpace(coords[0], coords[1], getTeam());
         }
         else if (cond.Equals("ENF")) {
             coords = getFront();
-            return GameMaster.playerAtSpace(coords[0], coords[1]);
+            return GameMaster.enemyAtSpace(coords[0], coords[1], getTeam());
         }
         else if (cond.Equals("ESP")) {
             //Returns if there is another character in the direction that a character is facing.
             coords = getFront();
             while (true) {
                 if (GameMaster.withinField(coords[0], coords[1])) {
-                    if (GameMaster.playerAtSpace(coords[0], coords[1])) {
+                    if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam())) {
                         return true;
                     }
                     else {
@@ -439,5 +442,9 @@ public class HypnoScript : MonoBehaviour {
             direction = "up";
         }
         charAnim.setDirection(direction);
+    }
+
+    public int getTeam() {
+        return GetComponent<Character>().team;
     }
 }

@@ -9,3 +9,6 @@ main: ENF attack ESP charge RDM charge: MOV main attack: ATK main
 
 Moves randomly before tracking target down and killing it
 main: ENF attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDM main remember: SEE main attack: ATK main seekFront: MOV main seekLeft: LFT main seekRight: RGT main seekBack: FLP main
+
+Tests control flow
+main: MOV attack LFT LFT main attack: ATK
