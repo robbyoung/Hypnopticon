@@ -220,8 +220,9 @@ public class Character : MonoBehaviour {
             alive = false;
             Deselect();
         }else {
-            health -= damage;
+            health -= damage; 
         }
+        GameMaster.animate("blood", transform.position.x, transform.position.y, transform.position.z - 0.01f);
     }
 
     public void resetCharacter() {

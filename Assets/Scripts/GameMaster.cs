@@ -12,6 +12,10 @@ public class GameMaster : MonoBehaviour {
     public static bool started;
     private static int currentPlayer;
     public static bool loop;
+    public Transform BloodPrefab;
+    public Transform SpottedPrefab;
+    public static Transform BloodAnimation;
+    public static Transform SpottedAnimation;
 
     // Use this for initialization
     void Start() {
@@ -20,6 +24,8 @@ public class GameMaster : MonoBehaviour {
         characters = new List<Character>();
         started = false;
         loop = true;
+        BloodAnimation = BloodPrefab;
+        SpottedAnimation = SpottedPrefab;
     }
 
     // Update is called once per frame
@@ -186,6 +192,18 @@ public class GameMaster : MonoBehaviour {
                 Destroy(characters[i].gameObject);
                 characters.RemoveAt(i);
             }
+        }
+    }
+
+    public static void animate(string type, float x, float y, float z) {
+        Transform temp;
+        if (type.Equals("blood")) {
+            temp = Instantiate(BloodAnimation);
+            temp.position = new Vector3(x, y, z);
+        }
+        else if (type.Equals("spotted")) {
+            temp = Instantiate(SpottedAnimation);
+            temp.position = new Vector3(x, y, z);
         }
     }
 }

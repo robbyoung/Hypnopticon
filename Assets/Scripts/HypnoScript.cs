@@ -273,6 +273,7 @@ public class HypnoScript : MonoBehaviour {
                         coords = getFront(coords);
                     }
                 }
+                GameMaster.animate("spotted", transform.position.x, transform.position.y, transform.position.z + 0.01f);
             }
             return translateCommand("IDL");
         }
