@@ -14,6 +14,7 @@ public class HypnoScript : MonoBehaviour {
     private Character target;
     private bool broken;
     private int loopCheck;
+    public string[] moveset;
 
 	// Use this for initialization
 	void Start () {
@@ -112,7 +113,7 @@ public class HypnoScript : MonoBehaviour {
                 indices.RemoveAt(indices.Count - 1);
                 return nextAction();
             }
-            if(getSubNum(command+":") > -1) {
+            if (getSubNum(command + ":") > -1) {
                 indices[indices.Count - 1]++;
                 if (indices[indices.Count - 1] >= actions[nest[nest.Count - 1]].Count) {
                     nest.RemoveAt(nest.Count - 1);
@@ -121,6 +122,8 @@ public class HypnoScript : MonoBehaviour {
                 nest.Add(getSubNum(command + ":"));
                 indices.Add(1);
                 return nextAction();
+            }else if (!inMoveset(command)) {
+                return "malfunction";
             }else if (isCondition(command)) {
                 if (checkCondition(command)) {
                     indices[indices.Count - 1]++;
@@ -326,7 +329,7 @@ public class HypnoScript : MonoBehaviour {
                     if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam())) {
                         return true;
                     }
-                    else if (!GameMaster.allyAtSpace(coords[0], coords[1], getTeam())) {
+                    else if (GameMaster.allyAtSpace(coords[0], coords[1], getTeam())) {
                         return false;
                     }
                     else {
@@ -489,5 +492,15 @@ public class HypnoScript : MonoBehaviour {
             nest.Add(getSubNum(keyword + ":"));
             indices.Add(1);
         }
+    }
+
+    public bool inMoveset(string move) {
+        move = move.ToUpper();
+        for(int i = 0; i < moveset.Length; i++) {
+            if (move.Equals(moveset[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 }
