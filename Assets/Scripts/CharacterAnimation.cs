@@ -101,8 +101,11 @@ public class CharacterAnimation : MonoBehaviour {
                 }
             }else {
                 character.performAction(10);
-                if (!idle && character.alive) {
+                if(!idle && character.alive) {
                     setState();
+                }
+                if (!idle && character.alive) {
+                    //setState();
                     if (state.Equals("idleRight")) {
                         currentAnim = idleRight;
                     }
@@ -200,6 +203,9 @@ public class CharacterAnimation : MonoBehaviour {
                         currentAnim = deathDown;
                     }
 
+                    if (!idle) {
+                        GameMaster.nextPlayer();
+                    }
                     moving = true;
                     idle = true;
                 }else{
@@ -221,7 +227,7 @@ public class CharacterAnimation : MonoBehaviour {
                 animRenderer.sprite = currentAnim[0];
                 timeAtAnimStart = Time.timeSinceLevelLoad;
                 frameIndex = 0;
-                character.setAction(state);
+                //character.setAction(state);
             }
             if(frameIndex != lastIndex) {
                 character.performAction(frameIndex);

@@ -54,6 +54,15 @@ public class GameMaster : MonoBehaviour {
         return false;
     }
 
+    public static bool allyAtSpace(int x, int y, int team) {
+        for (int i = 0; i < characters.Count; i++) {
+            if (characters[i].getX() == x && characters[i].getY() == y && characters[i].alive && characters[i].team == team) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static bool spaceIsClear(int x, int y) {
         int i;
         if (x > endColumn() || x < startColumn() || y > startRow() || y < endRow()) {
@@ -74,7 +83,11 @@ public class GameMaster : MonoBehaviour {
                 
                 if (characters[i].alive) {
                     characters[i].die(attack);
-                }else {
+                    if (characters[i].alive) {
+                        characters[i].GetComponent<HypnoScript>().interrupt("IHT");
+                    }
+                }
+                else {
                     //Destroy(characters[i].gameObject);
                     //characters.RemoveAt(i);
                     //i--;
@@ -128,6 +141,13 @@ public class GameMaster : MonoBehaviour {
     }
 
     public static void nextPlayer() {
+        bool allDead = true;
+        for(int i = 0; i < characters.Count; i++) {
+            if (characters[i].alive) {
+                allDead = false;
+            }
+        }
+        if (allDead) return;
         if(loop && currentPlayer >= characters.Count) {
             currentPlayer = 0;
         }

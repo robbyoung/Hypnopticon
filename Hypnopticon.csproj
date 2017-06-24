@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\HypnoScript.cs" />
     <Compile Include="Assets\Scripts\Textbox.cs" />
+    <Compile Include="Assets\Scripts\TitleScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\HypScripts\basic.txt" />

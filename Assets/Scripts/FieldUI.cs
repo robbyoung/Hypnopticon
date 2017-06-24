@@ -117,6 +117,26 @@ public class FieldUI : MonoBehaviour {
                 }
             }
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            if (selected.Count == 0) {
+                selected = GameMaster.selectTeam(3);
+            }
+            else {
+                for (int i = 0; i < selected.Count; i++) {
+                    selected[i].GetComponent<Character>().setTeam(3);
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) {
+            if (selected.Count == 0) {
+                selected = GameMaster.selectTeam(4);
+            }
+            else {
+                for (int i = 0; i < selected.Count; i++) {
+                    selected[i].GetComponent<Character>().setTeam(4);
+                }
+            }
+        }
     }
 
     public void addCommand() {

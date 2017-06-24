@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Button : MonoBehaviour {
 
@@ -23,5 +24,9 @@ public class Button : MonoBehaviour {
 
     public void resetGame() {
         GameMaster.resetGame();
+    }
+
+    public void goToField() {
+        SceneManager.LoadScene("Field");
     }
 }

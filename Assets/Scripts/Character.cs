@@ -18,6 +18,8 @@ public class Character : MonoBehaviour {
     public string action;
     public Transform selectionPrefab1;
     public Transform selectionPrefab2;
+    public Transform selectionPrefab3;
+    public Transform selectionPrefab4;
     private Transform selectionCircle;
     float displacedX, displacedY;
     public int team;
@@ -47,8 +49,8 @@ public class Character : MonoBehaviour {
     }
 
     public string nextState() {
-        string newState = GetComponent<HypnoScript>().nextAction();
-        //setAction(newState);
+        string newState = GetComponent<HypnoScript>().getNextAction();
+        setAction(newState);
         return newState;
     }
 
@@ -58,25 +60,32 @@ public class Character : MonoBehaviour {
         if (state.Equals("moveRight")) {
             if (canMove(1, 0)) {
                 action = "moveRight";
-            }else {
+            }
+            else {
                 action = "blockedRight";
             }
-        }else if (state.Equals("moveLeft")) {
+        }
+        else if (state.Equals("moveLeft")) {
             if (canMove(-1, 0)) {
                 action = "moveLeft";
-            }else {
+            }
+            else {
                 action = "blockedLeft";
             }
-        }else if (state.Equals("moveUp")) {
+        }
+        else if (state.Equals("moveUp")) {
             if (canMove(0, 1)) {
                 action = "moveUp";
-            }else {
+            }
+            else {
                 action = "blockedUp";
             }
-        }else if (state.Equals("moveDown")) {
+        }
+        else if (state.Equals("moveDown")) {
             if (canMove(0, -1)) {
                 action = "moveDown";
-            }else {
+            }
+            else {
                 action = "blockedDown";
             }
         }
@@ -95,8 +104,12 @@ public class Character : MonoBehaviour {
         else if (state.Equals("attackDown")) {
             GameMaster.attackSpace(attack, getX(), getY() - 1);
             action = "attackDown";
-        }else if (state.Equals("malfunction")) {
-            action = "malfunction";
+        }
+        else if (state.Equals("malfunction")) {
+            die(1);
+            if (alive) {
+                action = "malfunction";
+            }
         }
     }
 
@@ -224,10 +237,17 @@ public class Character : MonoBehaviour {
 
     public void Select() {
         Deselect();
-        if(team == 1)
+        if (team == 1) {
             selectionCircle = Instantiate(selectionPrefab1);
+        }
         else if(team == 2) {
             selectionCircle = Instantiate(selectionPrefab2);
+        }
+        else if(team == 3) {
+            selectionCircle = Instantiate(selectionPrefab3);
+        }
+        else if (team == 4) {
+            selectionCircle = Instantiate(selectionPrefab4);
         }
     }
 

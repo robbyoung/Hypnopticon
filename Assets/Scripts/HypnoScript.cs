@@ -8,10 +8,12 @@ public class HypnoScript : MonoBehaviour {
     private List<int> nest;
     private List<int> indices;
     private string direction;
+    private string savedDirection;
     private Character character;
     private CharacterAnimation charAnim;
     private Character target;
     private bool broken;
+    private int loopCheck;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +22,7 @@ public class HypnoScript : MonoBehaviour {
         actions[0].Add("main:");
         indices = new List<int>();
         direction = "right";
+        savedDirection = "right";
         character = GetComponent<Character>();
         charAnim = GetComponent<CharacterAnimation>();
         nest = new List<int>();
@@ -69,8 +72,18 @@ public class HypnoScript : MonoBehaviour {
         actions[0].Add("main:");
     }
 	
+    //Wrapper class for nextAction to avoid infinite loops.
+    public string getNextAction() {
+        loopCheck = 0;
+        return nextAction();
+    }
+
     // This is where the next action is figured out from the script.
-	public string nextAction() {
+	private string nextAction() {
+        loopCheck++;
+        if(loopCheck > 100) {
+            broken = true;
+        }
         if(target != null && !target.alive) {
             target = null;
         }
@@ -144,7 +157,7 @@ public class HypnoScript : MonoBehaviour {
         nest = new List<int>();
         nest.Add(0);
         indices.Add(1);
-        direction = "right";
+        direction = savedDirection;
         broken = false;
     }
 
@@ -250,7 +263,7 @@ public class HypnoScript : MonoBehaviour {
                 return "malfunction";
             }else {
                 int [] coords = getFront();
-                while (GameMaster.withinField(coords[0], coords[1]) && target == null) {
+                while (GameMaster.withinField(coords[0], coords[1]) && target == null && !GameMaster.allyAtSpace(coords[0], coords[1], getTeam())) {
                     if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam())) {
                             target = GameMaster.objectAtSpace(coords[0], coords[1]).GetComponent<Character>();
                     }else {
@@ -312,6 +325,9 @@ public class HypnoScript : MonoBehaviour {
                 if (GameMaster.withinField(coords[0], coords[1])) {
                     if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam())) {
                         return true;
+                    }
+                    else if (!GameMaster.allyAtSpace(coords[0], coords[1], getTeam())) {
+                        return false;
                     }
                     else {
                         coords = getFront(coords);
@@ -439,6 +455,9 @@ public class HypnoScript : MonoBehaviour {
             direction = "up";
         }
         charAnim.setDirection(direction);
+        if (!GameMaster.started) {
+            savedDirection = direction;
+        }
     }
 
     public void rotateLeft() {
@@ -455,9 +474,20 @@ public class HypnoScript : MonoBehaviour {
             direction = "up";
         }
         charAnim.setDirection(direction);
+        if (!GameMaster.started) {
+            savedDirection = direction;
+        }
     }
 
     public int getTeam() {
         return GetComponent<Character>().team;
+    }
+
+    //Deals with 'interrupts' such as when the character gets attacked and 'IHT' is set.
+    public void interrupt(string keyword) {
+        if(getSubNum(keyword+":") > -1) {
+            nest.Add(getSubNum(keyword + ":"));
+            indices.Add(1);
+        }
     }
 }
