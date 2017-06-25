@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class FieldUI : MonoBehaviour {
 
-    public Slider fpsSlider;
     public Text fpsText;
     private List<GameObject> selected;
     public InputField input;

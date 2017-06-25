@@ -16,6 +16,7 @@ public class GameMaster : MonoBehaviour {
     public Transform SpottedPrefab;
     public static Transform BloodAnimation;
     public static Transform SpottedAnimation;
+    public static int currentType;
 
     // Use this for initialization
     void Start() {
@@ -26,6 +27,7 @@ public class GameMaster : MonoBehaviour {
         loop = true;
         BloodAnimation = BloodPrefab;
         SpottedAnimation = SpottedPrefab;
+        currentType = 0;
     }
 
     // Update is called once per frame

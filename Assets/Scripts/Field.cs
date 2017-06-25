@@ -11,7 +11,7 @@ public class Field : MonoBehaviour {
     public int columns;
     private int size = 1;
     private Transform[,] squares;
-    public Transform characterPrefab;
+    public Transform[] characterPrefabs;
 
     void Start() {
         squares = new Transform[columns, rows];
@@ -32,7 +32,7 @@ public class Field : MonoBehaviour {
             int x = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
             int y = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
             if(GameMaster.spaceIsClear(x, y)) {
-                Transform character = Instantiate(characterPrefab);
+                Transform character = Instantiate(characterPrefabs[GameMaster.currentType]);
                 character.position = new Vector3(x, y + 0.1f, -2);
                 GameMaster.addCharacter(character.gameObject.GetComponent<Character>());
                 //print(x + "-> X: " + character.GetComponent<Character>().getX() + ", " + (int)(y + 0.1f) + " -> Y: " + character.GetComponent<Character>().getY());

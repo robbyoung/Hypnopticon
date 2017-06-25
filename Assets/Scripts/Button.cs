@@ -29,4 +29,8 @@ public class Button : MonoBehaviour {
     public void goToField() {
         SceneManager.LoadScene("Field");
     }
+
+    public void changeCharacterType(int index) {
+        GameMaster.currentType = index;
+    }
 }
