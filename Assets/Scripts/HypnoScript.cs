@@ -15,6 +15,7 @@ public class HypnoScript : MonoBehaviour {
     private bool broken;
     private int loopCheck;
     public string[] moveset;
+    private string characterCommand;
 
 	// Use this for initialization
 	void Start () {
@@ -76,6 +77,7 @@ public class HypnoScript : MonoBehaviour {
     //Wrapper class for nextAction to avoid infinite loops.
     public string getNextAction() {
         loopCheck = 0;
+        characterCommand = "";
         return nextAction();
     }
 
@@ -281,6 +283,101 @@ public class HypnoScript : MonoBehaviour {
         else if (command.Equals("FLP")) {
             translateCommand("LFT");
             return translateCommand("LFT");
+        }
+
+        else if (command.Equals("ATL")) {
+            if (direction.Equals("right")) {
+                characterCommand = "attackUp";
+                return "attackRight";
+            }
+            else if (direction.Equals("left")) {
+                characterCommand = "attackDown";
+                return "attackLeft";
+            }
+            else if (direction.Equals("up")) {
+                characterCommand = "attackLeft";
+                return "attackUp";
+            }
+            else {
+                characterCommand = "attackLeft";
+                return "attackDown";
+            }
+        }
+
+        else if (command.Equals("ATR")) {
+            if (direction.Equals("right")) {
+                characterCommand = "attackDown";
+                return "attackRight";
+            }
+            else if (direction.Equals("left")) {
+                characterCommand = "attackUp";
+                return "attackLeft";
+            }
+            else if (direction.Equals("up")) {
+                characterCommand = "attackRight";
+                return "attackUp";
+            }
+            else {
+                characterCommand = "attackLeft";
+                return "attackDown";
+            }
+        }
+
+        else if (command.Equals("MVB")) {
+            if (direction.Equals("right")) {
+                characterCommand = "moveLeft";
+                return "moveRight";
+            }
+            else if (direction.Equals("left")) {
+                characterCommand = "moveRight";
+                return "moveLeft";
+            }
+            else if (direction.Equals("up")) {
+                characterCommand = "moveDown";
+                return "moveUp";
+            }
+            else {
+                characterCommand = "moveUp";
+                return "moveDown";
+            }
+        }
+
+        else if (command.Equals("MVL")) {
+            if (direction.Equals("right")) {
+                characterCommand = "moveUp";
+                return "moveRight";
+            }
+            else if (direction.Equals("left")) {
+                characterCommand = "moveDown";
+                return "moveLeft";
+            }
+            else if (direction.Equals("up")) {
+                characterCommand = "moveLeft";
+                return "moveUp";
+            }
+            else {
+                characterCommand = "moveRight";
+                return "moveDown";
+            }
+        }
+
+        else if (command.Equals("MVR")) {
+            if (direction.Equals("right")) {
+                characterCommand = "moveDown";
+                return "moveRight";
+            }
+            else if (direction.Equals("left")) {
+                characterCommand = "moveUp";
+                return "moveLeft";
+            }
+            else if (direction.Equals("up")) {
+                characterCommand = "moveRight";
+                return "moveUp";
+            }
+            else {
+                characterCommand = "moveLeft";
+                return "moveDown";
+            }
         }
 
         else {
@@ -503,5 +600,9 @@ public class HypnoScript : MonoBehaviour {
             }
         }
         return false;
+    }
+
+    public string getCharacterCommand() {
+        return characterCommand;
     }
 }

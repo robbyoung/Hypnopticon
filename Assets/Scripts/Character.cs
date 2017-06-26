@@ -57,7 +57,11 @@ public class Character : MonoBehaviour {
     public void setAction(string state) {
         frame = 0;
         action = "nothing";
+        if (!GetComponent<HypnoScript>().getCharacterCommand().Equals("")) {
+            state = GetComponent<HypnoScript>().getCharacterCommand();
+        }
         if (state.Equals("moveRight")) {
+
             if (canMove(1, 0)) {
                 action = "moveRight";
             }
