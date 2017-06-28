@@ -35,8 +35,18 @@ public class FieldUI : MonoBehaviour {
                 GameObject newSelection = GameMaster.objectAtSpace(x, y);
                 if (newSelection != null /*&& !GameMaster.started*/) {
                     if (Input.GetKey(KeyCode.LeftControl)) {
-                        selected.Add(newSelection);
-                        newSelection.GetComponent<Character>().Select();
+                        bool repeated = false;
+                        for(int i = 0; i < selected.Count; i++) {
+                            if(newSelection == selected[i]) {
+                                selected.RemoveAt(i);
+                                newSelection.GetComponent<Character>().Deselect();
+                                repeated = true;
+                            }
+                        }
+                        if (!repeated) {
+                            selected.Add(newSelection);
+                            newSelection.GetComponent<Character>().Select();
+                        }
                     }
                     else {
                         for (int i = 0; i < selected.Count; i++) {
@@ -99,8 +109,9 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(1);
+                showScripting();
             }
-            else {
+            else if (!GameMaster.started) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(1);
                 }
@@ -109,8 +120,9 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(2);
+                showScripting();
             }
-            else {
+            else if(!GameMaster.started) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(2);
                 }
@@ -119,8 +131,9 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha3)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(3);
+                showScripting();
             }
-            else {
+            else if (!GameMaster.started) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(3);
                 }
@@ -129,8 +142,9 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha4)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(4);
+                showScripting();
             }
-            else {
+            else if (!GameMaster.started) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(4);
                 }
@@ -162,21 +176,5 @@ public class FieldUI : MonoBehaviour {
         scriptingEnabled = false;
     }
 
-    /*public void rotateCharacterLeft(int x, int y) {
-        HypnoScript character;
-        GameObject obj = GameMaster.objectAtSpace(x, y);
-        if(obj != null) {
-            character = obj.GetComponent<HypnoScript>();
-            character.rotateLeft();
-        }
-    }
-
-    public void rotateCharacterRight(int x, int y) {
-        HypnoScript character;
-        GameObject obj = GameMaster.objectAtSpace(x, y);
-        if (obj != null) {
-            character = obj.GetComponent<HypnoScript>();
-            character.rotateRight();
-        }
-    }*/
+    
 }

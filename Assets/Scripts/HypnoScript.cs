@@ -39,7 +39,7 @@ public class HypnoScript : MonoBehaviour {
         string[] newActions = newAction.Split(null);
         for (int i = 0; i < newActions.Length; i++) {
             if (!newActions[i].Equals("")) {
-                if (newActions[i].Contains(":")){
+                if (newActions[i].Contains(":")) {
                     subToAdd = getSubNum(newActions[i]);
                     if (subToAdd == -1) {
                         actions.Add(new List<string>());
@@ -182,6 +182,31 @@ public class HypnoScript : MonoBehaviour {
             }
         }
 
+        if (command.Equals("RDA")) {
+            float r = Random.value;
+            if (r < 0.143) {
+                command = "MOV";
+            }
+            else if (r < 0.285) {
+                command = "LFT";
+            }
+            else if (r < 0.428) {
+                command = "RGT";
+            }
+            else if (r < 0.571) {
+                command = "MVL";
+            }
+            else if (r < 0.714) {
+                command = "MVR";
+            }
+            else if (r < 0.857) {
+                command = "MVB";
+            }
+            else {
+                command = "FLP";
+            }
+        }
+
             //take a step forward.
         if (command.Equals("MOV")) {
             if (direction.Equals("right")) {
@@ -299,7 +324,7 @@ public class HypnoScript : MonoBehaviour {
                 return "attackUp";
             }
             else {
-                characterCommand = "attackLeft";
+                characterCommand = "attackRight";
                 return "attackDown";
             }
         }
