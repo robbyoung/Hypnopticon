@@ -17,6 +17,9 @@ public class GameMaster : MonoBehaviour {
     public static Transform BloodAnimation;
     public static Transform SpottedAnimation;
     public static int currentType;
+    public static List<Transform> prefabs;
+    public List<Transform> characterPrefabs;
+    private static string[] loading;
 
     // Use this for initialization
     void Start() {
@@ -28,11 +31,19 @@ public class GameMaster : MonoBehaviour {
         BloodAnimation = BloodPrefab;
         SpottedAnimation = SpottedPrefab;
         currentType = 0;
+        prefabs = characterPrefabs;
+        loading = null;
     }
 
     // Update is called once per frame
-    void Update() {
-
+    void LateUpdate() {
+        if(loading != null) {
+            for (int i = 0; i < loading.Length - 2; i += 3) {
+                characters[i/3].import(loading[i + 1]);
+                characters[i/3].GetComponent<HypnoScript>().addToScript(loading[i + 2]);
+            }
+            loading = null;
+        }
     }
 
     public static void addCharacter(Character newCharacter) {
@@ -90,7 +101,7 @@ public class GameMaster : MonoBehaviour {
             if(characters[i].getX() == x && characters[i].getY() == y) {
                 
                 if (characters[i].alive) {
-                    characters[i].die(attack);
+                    characters[i].die(attack, true);
                     if (characters[i].alive) {
                         characters[i].GetComponent<HypnoScript>().interrupt("IHT");
                     }
@@ -132,7 +143,22 @@ public class GameMaster : MonoBehaviour {
     public static void startGame() {
         if (!started) {
             started = true;
-            int i;
+            int i, j;
+            //sort characters based on speed
+            List<Character> sorted = new List<Character>();
+            int max;
+            while(characters.Count > 0) {
+                max = 0;
+                for(i = 0; i < characters.Count; i++) {
+                    if (characters[i].getSpeed() < characters[max].getSpeed()) {
+                        max = i;
+                    }
+                }
+                sorted.Add(characters[max]);
+                characters.RemoveAt(max);
+            }
+            characters = sorted;
+
             for (i = 0; i < characters.Count; i++) {
                 characters[i].gameObject.GetComponent<CharacterAnimation>().setAnimRunning(true);
             }
@@ -161,7 +187,11 @@ public class GameMaster : MonoBehaviour {
         }
         if(currentPlayer < characters.Count) {
             currentPlayer++;
-            characters[currentPlayer-1].gameObject.GetComponent<CharacterAnimation>().setIdle(false);
+            if (characters[currentPlayer - 1].willMove()) {
+                characters[currentPlayer - 1].gameObject.GetComponent<CharacterAnimation>().setIdle(false);
+            }else {
+                nextPlayer();
+            }
         }
     }
 
@@ -191,9 +221,19 @@ public class GameMaster : MonoBehaviour {
         for(int i = characters.Count-1; i >= 0; i--) {
             if (characters[i].isSelected()) {
                 characters[i].GetComponent<CharacterAnimation>().deleteBars();
+                characters[i].Deselect();
                 Destroy(characters[i].gameObject);
                 characters.RemoveAt(i);
             }
+        }
+    }
+
+    public static void deleteAllCharacters() {
+        for (int i = characters.Count - 1; i >= 0; i--) {
+            characters[i].GetComponent<CharacterAnimation>().deleteBars();
+            characters[i].Deselect();
+            Destroy(characters[i].gameObject);
+            characters.RemoveAt(i);
         }
     }
 
@@ -207,5 +247,28 @@ public class GameMaster : MonoBehaviour {
             temp = Instantiate(SpottedAnimation);
             temp.position = new Vector3(x, y, z);
         }
+    }
+
+    public static int numPlayers() {
+        return characters.Count;
+    }
+
+    public static string exportScenario() {
+        string temp = "";
+        for(int i = 0; i < characters.Count; i++) {
+            temp = temp + characters[i].export();
+        }
+        return temp;
+    }
+
+    public static void importScenario(string scenario) {
+        resetGame();
+        deleteCharacters();
+        string[] info = scenario.Split('\n');
+        for(int i = 0; i < info.Length-2; i += 3) {
+            Transform temp = Instantiate(prefabs[int.Parse(info[i])]);
+            characters.Add(temp.GetComponent<Character>());
+        }
+        loading = info;
     }
 }

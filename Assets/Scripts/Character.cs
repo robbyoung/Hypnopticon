@@ -23,6 +23,7 @@ public class Character : MonoBehaviour {
     private Transform selectionCircle;
     float displacedX, displacedY;
     public int team;
+    public int type;
 
     private int originalX;
     private int originalY;
@@ -42,7 +43,7 @@ public class Character : MonoBehaviour {
         displacedX = 0; displacedY = 0;
     }
 
-	void Update () {
+    void Update () {
         if(selectionCircle != null) {
             selectionCircle.position = new Vector3(transform.position.x, transform.position.y, transform.position.z+0.05f);
         }
@@ -110,7 +111,7 @@ public class Character : MonoBehaviour {
             action = "attackDown";
         }
         else if (state.Equals("malfunction")) {
-            die(1);
+            die(1, false);
             if (alive) {
                 action = "malfunction";
             }
@@ -217,7 +218,13 @@ public class Character : MonoBehaviour {
         //return (GameMaster.spaceIsClear((int)(transform.position.x + dx), (int)(transform.position.y - 0.1 + dy)) || ((int)(transform.position.x + dx) == getX() && (int)(transform.position.y - 0.1 + dy) == getY()));
     }
     
-    public void die(int damage) {
+    public void die(int damage, bool inclDef) {
+        if (inclDef) {
+            damage -= defense;
+            if(damage < 1) {
+                damage = 1;
+            }
+        }
         if (damage >= health) {
             health = 0;
             stamina = 0;
@@ -238,6 +245,7 @@ public class Character : MonoBehaviour {
         action = "nothing";
         health = maxHealth;
         stamina = maxStamina;
+        speedstack = speed;
     }
 
     public void Select() {
@@ -267,16 +275,17 @@ public class Character : MonoBehaviour {
         return (selectionCircle != null);
     }
 
-    public void stackSpeed() {
-        speedstack += speed;
-    }
-
-    public void unstackSpeed() {
-        speedstack = 0;
+    public bool willMove() {
+        speedstack -= 1;
+        if(speedstack < 0) {
+            speedstack = speed;
+            return true;
+        }
+        return false;
     }
 
     public int getSpeed() {
-        return speedstack;
+        return speed;
     }
 
     public float percentHealth() {
@@ -291,4 +300,20 @@ public class Character : MonoBehaviour {
         team = t;
         Select();
     }
+
+    public void import(string s) {
+        string[] info = s.Split(' ');
+        originalX = Convert.ToInt32(info[0]);
+        originalY = Convert.ToInt32(info[1]);
+        transform.position = new Vector3(originalX, originalY + 0.1f, transform.position.z);
+        team = Convert.ToInt32(info[2]);
+        GetComponent<HypnoScript>().setDirection(info[3]);
+    }
+
+    public string export() {
+        string exp = type + "\n" + getX() + " " + getY() + " " + team + " " + GetComponent<HypnoScript>().getDirection() + "\n" ;
+        exp = exp + GetComponent<HypnoScript>().getCommandString() + "\n";
+        return exp;
+    }
+
 }

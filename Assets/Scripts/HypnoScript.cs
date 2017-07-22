@@ -155,6 +155,18 @@ public class HypnoScript : MonoBehaviour {
         return commands;
     }
 
+    public string getCommandString() {
+        string commands = "";
+        int i;
+        for (i = 0; i < actions.Count; i++) {
+            commands = commands + actions[i][0];
+            for (int j = 1; j < actions[i].Count; j++) {
+                commands = commands + "  " + actions[i][j];
+            }
+        }
+        return commands;
+    }
+
     public void resetIndex() {
         for(int i = 0; i < indices.Count; i++) {
             indices[i] = 1;
@@ -503,6 +515,10 @@ public class HypnoScript : MonoBehaviour {
         else {
             return false;
         }
+    }
+
+    public void setDirection(string d) {
+        direction = d;
     }
 
     public string getDirection() {
