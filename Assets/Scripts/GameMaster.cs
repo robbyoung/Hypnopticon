@@ -20,6 +20,7 @@ public class GameMaster : MonoBehaviour {
     public static List<Transform> prefabs;
     public List<Transform> characterPrefabs;
     private static string[] loading;
+    private static int seed;
 
     // Use this for initialization
     void Start() {
@@ -33,6 +34,7 @@ public class GameMaster : MonoBehaviour {
         currentType = 0;
         prefabs = characterPrefabs;
         loading = null;
+        seed = (int)long.Parse(System.DateTime.Now.ToString("yyyyMMddHHmmss"));
     }
 
     // Update is called once per frame
@@ -142,6 +144,7 @@ public class GameMaster : MonoBehaviour {
 
     public static void startGame() {
         if (!started) {
+            UnityEngine.Random.InitState(seed);
             started = true;
             int i, j;
             //sort characters based on speed
@@ -258,17 +261,24 @@ public class GameMaster : MonoBehaviour {
         for(int i = 0; i < characters.Count; i++) {
             temp = temp + characters[i].export();
         }
+        temp = temp + seed;
         return temp;
     }
 
     public static void importScenario(string scenario) {
         resetGame();
-        deleteCharacters();
+        deleteAllCharacters();
         string[] info = scenario.Split('\n');
-        for(int i = 0; i < info.Length-2; i += 3) {
+        int i;
+        for(i = 0; i < info.Length-2; i += 3) {
             Transform temp = Instantiate(prefabs[int.Parse(info[i])]);
             characters.Add(temp.GetComponent<Character>());
         }
+        seed = int.Parse(info[i]);
         loading = info;
+    }
+
+    public static float random() {
+        return UnityEngine.Random.value;
     }
 }

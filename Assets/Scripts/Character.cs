@@ -308,6 +308,7 @@ public class Character : MonoBehaviour {
         transform.position = new Vector3(originalX, originalY + 0.1f, transform.position.z);
         team = Convert.ToInt32(info[2]);
         GetComponent<HypnoScript>().setDirection(info[3]);
+        GetComponent<CharacterAnimation>().setDirection(info[3]);
     }
 
     public string export() {
@@ -315,5 +316,4 @@ public class Character : MonoBehaviour {
         exp = exp + GetComponent<HypnoScript>().getCommandString() + "\n";
         return exp;
     }
-
 }

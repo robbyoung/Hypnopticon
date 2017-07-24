@@ -163,6 +163,7 @@ public class HypnoScript : MonoBehaviour {
             for (int j = 1; j < actions[i].Count; j++) {
                 commands = commands + "  " + actions[i][j];
             }
+            commands = commands + " ";
         }
         return commands;
     }
@@ -184,7 +185,7 @@ public class HypnoScript : MonoBehaviour {
         command = command.ToUpper();
 
         if (command.Equals("RDM")) {
-            float r = Random.value;
+            float r = GameMaster.random();
             if(r < 0.33) {
                 command = "MOV";
             }else if(r < 0.66) {
@@ -195,7 +196,7 @@ public class HypnoScript : MonoBehaviour {
         }
 
         if (command.Equals("RDA")) {
-            float r = Random.value;
+            float r = GameMaster.random();
             if (r < 0.143) {
                 command = "MOV";
             }
@@ -519,6 +520,9 @@ public class HypnoScript : MonoBehaviour {
 
     public void setDirection(string d) {
         direction = d;
+        if (!GameMaster.started) {
+            savedDirection = direction;
+        }
     }
 
     public string getDirection() {
@@ -597,9 +601,6 @@ public class HypnoScript : MonoBehaviour {
             direction = "up";
         }
         charAnim.setDirection(direction);
-        if (!GameMaster.started) {
-            savedDirection = direction;
-        }
     }
 
     public void rotateLeft() {
@@ -616,9 +617,6 @@ public class HypnoScript : MonoBehaviour {
             direction = "up";
         }
         charAnim.setDirection(direction);
-        if (!GameMaster.started) {
-            savedDirection = direction;
-        }
     }
 
     public int getTeam() {
