@@ -101,11 +101,11 @@ public class FieldUI : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Q) && !GameMaster.started) {
             for (int i = 0; i < selected.Count; i++) {
-                selected[i].GetComponent<HypnoScript>().rotateLeft();
+                selected[i].GetComponent<HypnoScript>().setLeft();
             }
         }else if (Input.GetKeyDown(KeyCode.E) && !GameMaster.started) {
             for (int i = 0; i < selected.Count; i++) {
-                selected[i].GetComponent<HypnoScript>().rotateRight();
+                selected[i].GetComponent<HypnoScript>().setRight();
             }
         }
 

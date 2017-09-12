@@ -109,6 +109,17 @@ public class Character : MonoBehaviour {
         else if (state.Equals("attackDown")) {
             GameMaster.attackSpace(attack, getX(), getY() - 1);
             action = "attackDown";
+        }else if (state.Equals("rangedRight")) {
+            action = "attackRight";
+        }
+        else if (state.Equals("rangedLeft")) {
+            action = "attackLeft";
+        }
+        else if (state.Equals("rangedUp")) {
+            action = "attackUp";
+        }
+        else if (state.Equals("rangedDown")) {
+            action = "attackDown";
         }
         else if (state.Equals("malfunction")) {
             die(1, false);

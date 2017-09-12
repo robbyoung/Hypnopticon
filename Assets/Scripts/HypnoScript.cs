@@ -13,6 +13,7 @@ public class HypnoScript : MonoBehaviour {
     private CharacterAnimation charAnim;
     private Character target;
     private bool broken;
+    private bool weaponLoaded; //For archers
     private int loopCheck;
     public string[] moveset;
     private string characterCommand;
@@ -32,6 +33,7 @@ public class HypnoScript : MonoBehaviour {
         broken = false;
         nest.Add(0);
         indices.Add(1);
+        weaponLoaded = true;
     }
 
     public void addToScript(string newAction) {
@@ -177,6 +179,7 @@ public class HypnoScript : MonoBehaviour {
         indices.Add(1);
         direction = savedDirection;
         broken = false;
+        weaponLoaded = true;
     }
 
     //Translate a command from what the player types to a state keyword.
@@ -418,6 +421,49 @@ public class HypnoScript : MonoBehaviour {
             }
         }
 
+        //Ranged attack
+        else if (command.Equals("RAT")) {
+            if (weaponLoaded) {
+                
+                int[] coords = getFront();
+                while (GameMaster.withinField(coords[0], coords[1]) && weaponLoaded) {
+                    if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam()) || GameMaster.allyAtSpace(coords[0], coords[1], getTeam())) {
+                        GameMaster.attackSpace(GetComponent<Character>().attack, coords[0], coords[1]);
+                        weaponLoaded = false;
+                    }
+                    else {
+                        coords = getFront(coords);
+                    }
+                }
+                weaponLoaded = false; //Keep this if you want the archer to shoot even if they don't shoot a character.
+
+                if (direction.Equals("right")) {
+                    characterCommand = "rangedRight";
+                    return "attackRight";
+                }
+                else if (direction.Equals("left")) {
+                    characterCommand = "rangedLeft";
+                    return "attackLeft";
+                }
+                else if (direction.Equals("up")) {
+                    characterCommand = "rangedUp";
+                    return "attackUp";
+                }
+                else {
+                    characterCommand = "rangedRight";
+                    return "attackRight";
+                }
+            }
+            else {
+                return "malfunction";
+            }
+        }
+
+        else if (command.Equals("RLD")) {
+            weaponLoaded = true;
+            return translateCommand("IDL");
+        }
+
         else {
             return "malfunction";
         }
@@ -617,6 +663,18 @@ public class HypnoScript : MonoBehaviour {
             direction = "up";
         }
         charAnim.setDirection(direction);
+    }
+
+    //Turn the saved direction left.
+    public void setLeft() {
+        rotateLeft();
+        savedDirection = direction;
+    }
+
+    //Turn the saved direction right.
+    public void setRight() {
+        rotateRight();
+        savedDirection = direction;
     }
 
     public int getTeam() {
