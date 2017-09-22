@@ -78,9 +78,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Fonts\Script\scriptTexttest.cs" />
     <Compile Include="Assets\Scripts\Button.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\CharacterAnimation.cs" />
+    <Compile Include="Assets\Scripts\Conversation.cs" />
     <Compile Include="Assets\Scripts\Field.cs" />
     <Compile Include="Assets\Scripts\FieldUI.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
@@ -90,7 +92,14 @@
     <Compile Include="Assets\Scripts\TitleScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Conversations\I Miss You.xml" />
+    <None Include="Assets\Conversations\Intro.xml" />
+    <None Include="Assets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
+    <None Include="Assets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\HypScripts\basic.txt" />
+    <None Include="Assets\Scenarios\neato.txt" />
+    <None Include="Assets\Scenarios\simple.txt" />
+    <None Include="Assets\Scenarios\soup.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

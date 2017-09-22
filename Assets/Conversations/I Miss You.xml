@@ -1,0 +1,68 @@
+<dialogue>
+  <setup></setup>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>WHERE ARE YOU!</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>AND I'M SO SORRY</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>I CANNOT SLEEP I CANNOT DREAM TONIGHT</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>I NEED SOMEBODY AND ALWAYS</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>THIS SICK STRANGE DARKNESS</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>COMES CREEPING ON SO HAUNTING EVERY TIME</speech>
+  </line>
+  <line>
+    <pic>1</pic>
+    <side>r</side>
+    <speech>AND AS I STARED I COUNTED</speech>
+  </line>
+  <line>
+    <pic>1</pic>
+    <side>r</side>
+    <speech>THE WEBS FROM ALL THE SPIDERS</speech>
+  </line>
+  <line>
+    <pic>1</pic>
+    <side>r</side>
+    <speech>CATCHING THINGS AND EATING THEIR INSIDES</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>LIKE INDECISION TO CALL YOU</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>AND HEAR YOUR VOICE OF TREASON</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>WILL YOU COME HOME AND STOP THIS PAIN TONIGHT</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>STOP THIS PAIN TONIGHT?</speech>
+  </line>
+</dialogue>

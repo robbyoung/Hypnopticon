@@ -8,19 +8,25 @@ public class TitleScreen : MonoBehaviour {
     public Sprite[] titleAnim;
     private SpriteRenderer animRenderer;
     public int framesPerSecond;
-    public GameObject startButton;
-	
-	void Start () {
+    public GameObject storyButton;
+    public GameObject sandboxButton;
+    public int loop;
+
+    void Start () {
         animRenderer = GetComponent<Renderer>() as SpriteRenderer;
         animRenderer.sprite = titleAnim[0];
-        startButton.SetActive(false);
-	}
+        storyButton.SetActive(false);
+        sandboxButton.SetActive(false);
+        loop = 0;
+    }
 	
 	void Update () {
-        int frame = (int)(Time.timeSinceLevelLoad * framesPerSecond);
+        int frame = (int)(Time.timeSinceLevelLoad * framesPerSecond - loop);
         if(frame >= titleAnim.Length) {
-            frame = titleAnim.Length - 1;
-            startButton.SetActive(true);
+            loop += 5;
+            frame = 18;
+            storyButton.SetActive(true);
+            sandboxButton.SetActive(true);
         }
         animRenderer.sprite = titleAnim[frame];
     }
