@@ -48,6 +48,10 @@ public class GameMaster : MonoBehaviour {
         }
     }
 
+    public static int characterCount() {
+        return characters.Count;
+    }
+
     public static void addCharacter(Character newCharacter) {
         characters.Add(newCharacter);
     }

@@ -10,12 +10,14 @@ public class FieldUI : MonoBehaviour {
     private List<GameObject> selected;
     public InputField input;
     public GameObject scriptBlock;
+    public GameObject menu;
     public Text commandList;
     private bool scriptingEnabled;
     private int[] shiftCoords;
 
 	// Use this for initialization
 	void Start() {
+        menu.SetActive(false);
         scriptingEnabled = false;
         selected = new List<GameObject>();
         shiftCoords = new int[] { 0, 0 };
@@ -23,6 +25,9 @@ public class FieldUI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if(GameMaster.characterCount() == 0) {
+            selected = new List<GameObject>();
+        }
         fpsText.text = GameMaster.fps + "FPS";
         if(selected.Count > 0) {
             commandList.text = selected[selected.Count - 1].GetComponent<HypnoScript>().getCommands();
@@ -158,6 +163,11 @@ public class FieldUI : MonoBehaviour {
                     selected[i].GetComponent<Character>().setTeam(4);
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            GameMaster.resetGame();
+            menu.SetActive(true);
         }
     }
 

@@ -16,9 +16,14 @@ public class Conversation : MonoBehaviour {
     private List<string> dialogue;
     private List<int> portraitIndices;
     private List<string> portraitSides;
+    private Color transparent;
+    private Color opaque;
 
 	// Use this for initialization
 	void Start () {
+        transparent = rightPortrait.color;
+        opaque = rightPortrait.color;
+        transparent.a = 0.6f;
         dialogue = new List<string>();
         portraitIndices = new List<int>();
         portraitSides = new List<string>();
@@ -38,8 +43,18 @@ public class Conversation : MonoBehaviour {
         }
 
         currentIndex = 0;
-        dialogueBox.text = dialogue[0];
-        dialogueBox.alignment = TextAnchor.MiddleLeft;
+        if (portraitSides[currentIndex].Equals("l")) {
+            dialogueBox.alignment = TextAnchor.MiddleLeft;
+            leftPortrait.sprite = portraits[portraitIndices[currentIndex]];
+            leftPortrait.color = opaque;
+            rightPortrait.color = transparent;
+        }
+        else {
+            dialogueBox.alignment = TextAnchor.MiddleRight;
+            rightPortrait.sprite = portraits[portraitIndices[currentIndex]];
+            rightPortrait.color = opaque;
+            leftPortrait.color = transparent;
+        }
     }
 	
 	// Update is called once per frame
@@ -51,9 +66,14 @@ public class Conversation : MonoBehaviour {
                 if (portraitSides[currentIndex].Equals("l")) {
                     dialogueBox.alignment = TextAnchor.MiddleLeft;
                     leftPortrait.sprite = portraits[portraitIndices[currentIndex]];
-                }else {
+                    leftPortrait.color = opaque;
+                    rightPortrait.color = transparent;
+                }
+                else {
                     dialogueBox.alignment = TextAnchor.MiddleRight;
                     rightPortrait.sprite = portraits[portraitIndices[currentIndex]];
+                    rightPortrait.color = opaque;
+                    leftPortrait.color = transparent;
                 }
             }
             else {

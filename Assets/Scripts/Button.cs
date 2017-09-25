@@ -9,6 +9,7 @@ using System.IO;
 public class Button : MonoBehaviour {
 
     //public InputField saveText;
+    public GameObject menuScreen;
 
     public void startGame() {
         GameMaster.startGame();
@@ -42,6 +43,19 @@ public class Button : MonoBehaviour {
         GameMaster.currentType = index;
     }
 
+    public void clearField() {
+        GameMaster.deleteAllCharacters();
+        resume();
+    }
+
+    public void quit() {
+        Application.Quit();
+    }
+
+    public void resume() {
+        menuScreen.SetActive(false);
+    }
+
     public InputField saveText;
     public void SaveScenario() {
         string fileName = "Assets/Scenarios/" + saveText.text + ".txt";
@@ -53,7 +67,9 @@ public class Button : MonoBehaviour {
         sr.WriteLine(GameMaster.exportScenario());
         sr.Close();
         Debug.Log("Saved " + fileName);
+        resume();
     }
+
 
     public void LoadScenario() {
         string fileName = "Assets/Scenarios/" + saveText.text + ".txt";
@@ -65,6 +81,7 @@ public class Button : MonoBehaviour {
         }else {
             Debug.Log(fileName + " doesn't exist.");
         }
+        resume();
     }
 
 
