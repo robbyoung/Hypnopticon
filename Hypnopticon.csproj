@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\FieldUI.cs" />
     <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\HypnoScript.cs" />
+    <Compile Include="Assets\Scripts\Hypnopticon.cs" />
     <Compile Include="Assets\Scripts\Indiemation.cs" />
     <Compile Include="Assets\Scripts\Textbox.cs" />
     <Compile Include="Assets\Scripts\TitleScreen.cs" />
@@ -97,6 +98,9 @@
     <None Include="Assets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
     <None Include="Assets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\HypScripts\basic.txt" />
+    <None Include="Assets\Scenarios\ambush.txt" />
+    <None Include="Assets\Scenarios\battle.txt" />
+    <None Include="Assets\Scenarios\intro.txt" />
     <None Include="Assets\Scenarios\neato.txt" />
     <None Include="Assets\Scenarios\simple.txt" />
     <None Include="Assets\Scenarios\soup.txt" />

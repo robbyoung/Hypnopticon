@@ -1,4 +1,83 @@
 <dialogue>
-  <p>Hi buddy!</p>
-  <p>I'm not your buddy, pal.</p>
+  <setup></setup>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>I think I got away from those bandits... Thank goodness, I couldn't have run much longer.</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Wait... What's this?</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>A dagger? It's just like the one the bandits' leader had.</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>The inside is hollow... And there's paper on the inside?</speech>
+  </line>
+  <line>
+    <pic>3</pic>
+    <side>r</side>
+    <speech>WELCOME TO HYPNOPTICON</speech>
+  </line>
+  <line>
+    <pic>3</pic>
+    <side>r</side>
+    <speech>UNIFY EVERYONE, FRIEND OR FOE, THROUGH MIND CONTROL.</speech>
+  </line>
+  <line>
+    <pic>3</pic>
+    <side>r</side>
+    <speech>JUST TAKE A SWIPE AT ONE OF YOUR FRIENDS. YOU'LL LOVE THE RESULTS!</speech>
+  </line>
+  <line>
+    <pic>1</pic>
+    <side>r</side>
+    <speech>Look, Gordon, there he is!</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>Oh boy, Percy, the boss is going to love us for this!</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Oh no...</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>All right Percy, I'll grab him!</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>AAHHHHHHHH!</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>Ah! Percy, he cut me with something!</speech>
+  </line>
+  <line>
+    <pic>1</pic>
+    <side>r</side>
+    <speech>So what? You'll be fine.</speech>
+  </line>
+  <line>
+    <pic>2</pic>
+    <side>r</side>
+    <speech>No... I... Ah... I feel dizzy.</speech>
+  </line>
+  <line>
+    <pic>1</pic>
+    <side>r</side>
+    <speech>Gordon?</speech>
+  </line>
 </dialogue>

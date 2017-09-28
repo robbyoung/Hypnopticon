@@ -36,6 +36,7 @@ public class Button : MonoBehaviour {
     }
 
     public void goToStory() {
+        Hypnopticon.storyMode = true;
         SceneManager.LoadScene("Conversation");
     }
 
@@ -72,15 +73,7 @@ public class Button : MonoBehaviour {
 
 
     public void LoadScenario() {
-        string fileName = "Assets/Scenarios/" + saveText.text + ".txt";
-        if (File.Exists(fileName)) {
-            StreamReader reader = new StreamReader(fileName);
-            GameMaster.importScenario(reader.ReadToEnd());
-            reader.Close();
-            Debug.Log("Loaded " + fileName);
-        }else {
-            Debug.Log(fileName + " doesn't exist.");
-        }
+        GameMaster.loadScenario(saveText.text);
         resume();
     }
 

@@ -23,3 +23,6 @@ main: MVL MOV MVR MVB IDL RGT main IHT: ENF ATK ENR ATR ENL ATL RTN
 
 Decent Man-at-Arms Script:
 main: ENF attack ENL attack ENR attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDA main attack: ENF ATK ENL ATL ENR ATR main remember: SEE main seekFront: MOV main seekBack: FLP main seekLeft: MVL main seekRight: MVR main IHT: ENF ENF RTN ENR RTN ENL RTN MOV RTN
+
+Decent Archer Script:
+main: ESP attack BLR moveLeft MVR main attack: RAT RLD main moveLeft: BLL rand MVL main rand: RDM main

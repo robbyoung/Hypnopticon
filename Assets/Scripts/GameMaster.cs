@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 public class GameMaster : MonoBehaviour {
@@ -35,6 +36,9 @@ public class GameMaster : MonoBehaviour {
         prefabs = characterPrefabs;
         loading = null;
         seed = (int)long.Parse(System.DateTime.Now.ToString("yyyyMMddHHmmss"));
+        if (Hypnopticon.storyMode) {
+            loadScenario(Hypnopticon.nextBattle);
+        }
     }
 
     // Update is called once per frame
@@ -150,7 +154,7 @@ public class GameMaster : MonoBehaviour {
         if (!started) {
             UnityEngine.Random.InitState(seed);
             started = true;
-            int i, j;
+            int i;
             //sort characters based on speed
             List<Character> sorted = new List<Character>();
             int max;
@@ -284,5 +288,18 @@ public class GameMaster : MonoBehaviour {
 
     public static float random() {
         return UnityEngine.Random.value;
+    }
+
+    public static void loadScenario(string filename) {
+        string fileName = "Assets/Scenarios/" + filename + ".txt";
+        if (File.Exists(fileName)) {
+            StreamReader reader = new StreamReader(fileName);
+            GameMaster.importScenario(reader.ReadToEnd());
+            reader.Close();
+            Debug.Log("Loaded " + fileName);
+        }
+        else {
+            Debug.Log(fileName + " doesn't exist.");
+        }
     }
 }

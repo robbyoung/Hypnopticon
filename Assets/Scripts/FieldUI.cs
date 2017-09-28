@@ -84,7 +84,7 @@ public class FieldUI : MonoBehaviour {
             hideScripting();
         }
 
-        if (Input.GetKeyDown(KeyCode.Delete) && selected.Count > 0) {
+        if (Input.GetKeyDown(KeyCode.Delete) && selected.Count > 0 && !Hypnopticon.storyMode) {
             if(GameMaster.started) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().die(10000, false);
@@ -125,7 +125,7 @@ public class FieldUI : MonoBehaviour {
                 selected = GameMaster.selectTeam(1);
                 showScripting();
             }
-            else if (!GameMaster.started) {
+            else if (!GameMaster.started && !Hypnopticon.storyMode) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(1);
                 }
@@ -134,9 +134,11 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(2);
-                showScripting();
+                if (!Hypnopticon.storyMode) {
+                    showScripting();
+                }
             }
-            else if(!GameMaster.started) {
+            else if(!GameMaster.started && !Hypnopticon.storyMode) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(2);
                 }
@@ -145,9 +147,11 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha3)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(3);
-                showScripting();
+                if (!Hypnopticon.storyMode) {
+                    showScripting();
+                }
             }
-            else if (!GameMaster.started) {
+            else if (!GameMaster.started && !Hypnopticon.storyMode) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(3);
                 }
@@ -156,9 +160,11 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha4)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(4);
-                showScripting();
+                if (!Hypnopticon.storyMode) {
+                    showScripting();
+                }
             }
-            else if (!GameMaster.started) {
+            else if (!GameMaster.started && !Hypnopticon.storyMode) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().setTeam(4);
                 }
