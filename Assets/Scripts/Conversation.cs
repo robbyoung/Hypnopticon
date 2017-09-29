@@ -4,10 +4,10 @@ using System.Xml;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.IO;
 
 public class Conversation : MonoBehaviour {
 
-    public TextAsset xmlFile;
     public Text dialogueBox;
     public Image leftPortrait;
     public Image rightPortrait;
@@ -18,17 +18,20 @@ public class Conversation : MonoBehaviour {
     private List<string> portraitSides;
     private Color transparent;
     private Color opaque;
+    private XmlDocument xmlDoc;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
+        string fileName = "Assets/Conversations/" + Hypnopticon.nextConvo + ".xml";
+        StreamReader reader = new StreamReader(fileName);
         transparent = rightPortrait.color;
         opaque = rightPortrait.color;
-        transparent.a = 0.6f;
+        transparent.a = 0f;
         dialogue = new List<string>();
         portraitIndices = new List<int>();
         portraitSides = new List<string>();
-        XmlDocument xmlDoc = new XmlDocument();
-        xmlDoc.LoadXml(xmlFile.text);
+        xmlDoc = new XmlDocument();
+        xmlDoc.LoadXml(reader.ReadToEnd());
         XmlNodeList xList = xmlDoc.GetElementsByTagName("speech");
         foreach(XmlNode pInfo in xList) {
             dialogue.Add(pInfo.InnerText);
@@ -43,18 +46,11 @@ public class Conversation : MonoBehaviour {
         }
 
         currentIndex = 0;
-        if (portraitSides[currentIndex].Equals("l")) {
-            dialogueBox.alignment = TextAnchor.MiddleLeft;
-            leftPortrait.sprite = portraits[portraitIndices[currentIndex]];
-            leftPortrait.color = opaque;
-            rightPortrait.color = transparent;
-        }
-        else {
-            dialogueBox.alignment = TextAnchor.MiddleRight;
-            rightPortrait.sprite = portraits[portraitIndices[currentIndex]];
-            rightPortrait.color = opaque;
-            leftPortrait.color = transparent;
-        }
+        dialogueBox.alignment = TextAnchor.MiddleLeft;
+        dialogueBox.text = dialogue[currentIndex];
+        leftPortrait.sprite = portraits[portraitIndices[currentIndex]];
+        leftPortrait.color = opaque;
+        rightPortrait.color = transparent;
     }
 	
 	// Update is called once per frame
@@ -70,6 +66,7 @@ public class Conversation : MonoBehaviour {
                     rightPortrait.color = transparent;
                 }
                 else {
+                    transparent.a = 0.6f;
                     dialogueBox.alignment = TextAnchor.MiddleRight;
                     rightPortrait.sprite = portraits[portraitIndices[currentIndex]];
                     rightPortrait.color = opaque;
@@ -77,6 +74,8 @@ public class Conversation : MonoBehaviour {
                 }
             }
             else {
+                XmlNodeList xList = xmlDoc.GetElementsByTagName("next");
+                Hypnopticon.nextConvo = xList[0].InnerText;
                 SceneManager.LoadScene("Field");
             }
         } 

@@ -46,6 +46,9 @@ public class Button : MonoBehaviour {
 
     public void clearField() {
         GameMaster.deleteAllCharacters();
+        if (Hypnopticon.storyMode) {
+            GameMaster.loadScenario(Hypnopticon.nextBattle);
+        }
         resume();
     }
 
@@ -59,6 +62,7 @@ public class Button : MonoBehaviour {
 
     public InputField saveText;
     public void SaveScenario() {
+        if (Hypnopticon.storyMode) return;
         string fileName = "Assets/Scenarios/" + saveText.text + ".txt";
         if (File.Exists(fileName)) {
             Debug.Log("Deleting " + fileName);
@@ -73,6 +77,7 @@ public class Button : MonoBehaviour {
 
 
     public void LoadScenario() {
+        if (Hypnopticon.storyMode) return;
         GameMaster.loadScenario(saveText.text);
         resume();
     }

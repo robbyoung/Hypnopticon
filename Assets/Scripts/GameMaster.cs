@@ -22,9 +22,11 @@ public class GameMaster : MonoBehaviour {
     public List<Transform> characterPrefabs;
     private static string[] loading;
     private static int seed;
+    public static bool win;
 
     // Use this for initialization
     void Start() {
+        win = false;
         GameMaster.fps = 16;
         myField = fieldObject.GetComponent<Field>();
         characters = new List<Character>();
@@ -126,6 +128,7 @@ public class GameMaster : MonoBehaviour {
     }
 
     public static void resetGame() {
+        win = false;
         int i;
         for (i = 0; i < characters.Count; i++) {
             characters[i].resetCharacter();
@@ -187,9 +190,13 @@ public class GameMaster : MonoBehaviour {
 
     public static void nextPlayer() {
         bool allDead = true;
+        win = true;
         for(int i = 0; i < characters.Count; i++) {
             if (characters[i].alive) {
                 allDead = false;
+                if(characters[i].team != 1) {
+                    win = false;
+                }
             }
         }
         if (allDead) return;
@@ -300,6 +307,14 @@ public class GameMaster : MonoBehaviour {
         }
         else {
             Debug.Log(fileName + " doesn't exist.");
+        }
+    }
+
+    public static void newRecruits() {
+        for(int i = 0; i < characters.Count; i++) {
+            if(characters[i].team != 1 || (characters[i].team == 1 && characters[i].alive)) {
+                Hypnopticon.unitCount[characters[i].type]++;
+            }
         }
     }
 }

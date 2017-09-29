@@ -1,0 +1,14 @@
+<dialogue>
+  <setup>1</setup>
+  <next> </next>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Ooosh, I just controlled the fuck out of dat boi.</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Ah! Bandit archers ahead! Time to practice some more.</speech>
+  </line>
+</dialogue>

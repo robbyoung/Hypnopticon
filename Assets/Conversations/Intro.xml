@@ -1,9 +1,10 @@
 <dialogue>
-  <setup></setup>
+  <setup>1</setup>
+  <next>Woods</next>
   <line>
     <pic>0</pic>
     <side>l</side>
-    <speech>I think I got away from those bandits... Thank goodness, I couldn't have run much longer.</speech>
+    <speech>I think I got away from those bandits... Thank goodness.</speech>
   </line>
   <line>
     <pic>0</pic>

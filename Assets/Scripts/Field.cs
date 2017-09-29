@@ -28,13 +28,16 @@ public class Field : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started) {
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode || Hypnopticon.unitCount[GameMaster.currentType] > 0)) {
             int x = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
             int y = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
             if(GameMaster.spaceIsClear(x, y)) {
                 Transform character = Instantiate(characterPrefabs[GameMaster.currentType]);
                 character.position = new Vector3(x, y + 0.1f, -2);
                 GameMaster.addCharacter(character.gameObject.GetComponent<Character>());
+                if (Hypnopticon.storyMode) {
+                    Hypnopticon.unitCount[GameMaster.currentType]--;
+                }
                 //print(x + "-> X: " + character.GetComponent<Character>().getX() + ", " + (int)(y + 0.1f) + " -> Y: " + character.GetComponent<Character>().getY());
             }
         }

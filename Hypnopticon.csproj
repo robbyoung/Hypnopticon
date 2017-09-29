@@ -95,9 +95,11 @@
   <ItemGroup>
     <None Include="Assets\Conversations\I Miss You.xml" />
     <None Include="Assets\Conversations\Intro.xml" />
+    <None Include="Assets\Conversations\Woods.xml" />
     <None Include="Assets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
     <None Include="Assets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\HypScripts\basic.txt" />
+    <None Include="Assets\Scenarios\Woods.txt" />
     <None Include="Assets\Scenarios\ambush.txt" />
     <None Include="Assets\Scenarios\battle.txt" />
     <None Include="Assets\Scenarios\intro.txt" />

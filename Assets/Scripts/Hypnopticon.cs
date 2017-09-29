@@ -14,7 +14,7 @@ public class Hypnopticon : MonoBehaviour {
         storyMode = false;
         nextConvo = "intro";
         nextBattle = "intro";
-        unitCount.Add(1);
+        unitCount.Add(0);
         unitCount.Add(0);
         unitCount.Add(0);
 	}

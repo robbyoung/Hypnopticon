@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FieldUI : MonoBehaviour {
 
+    public List<Text> unitCounts;
+    public GameObject winText;
     public Text fpsText;
     private List<GameObject> selected;
     public InputField input;
@@ -25,6 +28,7 @@ public class FieldUI : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        
         if(GameMaster.characterCount() == 0) {
             selected = new List<GameObject>();
         }
@@ -104,11 +108,11 @@ public class FieldUI : MonoBehaviour {
             showScripting();
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !GameMaster.started) {
+        if (Input.GetKeyDown(KeyCode.Q) && !GameMaster.started && scriptingEnabled) {
             for (int i = 0; i < selected.Count; i++) {
                 selected[i].GetComponent<HypnoScript>().setLeft();
             }
-        }else if (Input.GetKeyDown(KeyCode.E) && !GameMaster.started) {
+        }else if (Input.GetKeyDown(KeyCode.E) && !GameMaster.started && scriptingEnabled) {
             for (int i = 0; i < selected.Count; i++) {
                 selected[i].GetComponent<HypnoScript>().setRight();
             }
@@ -174,6 +178,32 @@ public class FieldUI : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             GameMaster.resetGame();
             menu.SetActive(true);
+        }
+
+        //Disallow the player from changing enemy scripts.
+        if (Hypnopticon.storyMode) {
+            for (int i = 0; i < selected.Count; i++) {
+                if (selected[i].GetComponent<Character>().team != 1) {
+                    hideScripting();
+                }
+            }
+        }
+        if (GameMaster.win && Hypnopticon.storyMode) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                GameMaster.newRecruits();
+                Hypnopticon.nextBattle = Hypnopticon.nextConvo;
+                SceneManager.LoadScene("Conversation");
+            }
+            winText.SetActive(true);
+        }
+        else {
+            winText.SetActive(false);
+        }
+
+        if (Hypnopticon.storyMode) {
+            for (int i = 0; i < unitCounts.Count; i++) {
+                unitCounts[i].text = "" + Hypnopticon.unitCount[i];
+            }
         }
     }
 
