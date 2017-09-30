@@ -39,6 +39,9 @@ public class GameMaster : MonoBehaviour {
         loading = null;
         seed = (int)long.Parse(System.DateTime.Now.ToString("yyyyMMddHHmmss"));
         if (Hypnopticon.storyMode) {
+            if (Hypnopticon.nextBattle.Equals("Random")) {
+                randomScenario();
+            }
             loadScenario(Hypnopticon.nextBattle);
         }
     }
@@ -308,6 +311,26 @@ public class GameMaster : MonoBehaviour {
         else {
             Debug.Log(fileName + " doesn't exist.");
         }
+    }
+
+    public static void randomScenario() {
+        List<string> scripts = new List<string>();
+        scripts.Add("main: ENF attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDM main remember: SEE main attack: ATK main seekFront: MOV main seekLeft: LFT main seekRight: RGT main seekBack: FLP main IHT: ENF attack MOV RTN");
+        scripts.Add("main: ENF attack ENL attack ENR attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDA main attack: ENF ATK ENL ATL ENR ATR main remember: SEE main seekFront: MOV main seekBack: FLP main seekLeft: MVL main seekRight: MVR main IHT: ENF ENF RTN ENR RTN ENL RTN MOV RTN");
+        scripts.Add("main: ESP attack BLR moveLeft MVR main attack: RAT RLD main moveLeft: BLL rand MVL main rand: RDM main");
+        string fileName = "Assets/Scenarios/Random.txt";
+        if (File.Exists(fileName)) {
+            File.Delete(fileName);
+        }
+        var sr = File.CreateText(fileName);
+        for (int i = 0; i < 3; i++) {
+            int type = (int)(random() * 3);
+            sr.WriteLine(type + "");
+            sr.WriteLine((-3 + 2 * i) + " 3 2 down");
+            sr.WriteLine(scripts[type] + "");
+        }
+        sr.WriteLine((int)long.Parse(System.DateTime.Now.ToString("yyyyMMddHHmmss")) + "");
+        sr.Close();
     }
 
     public static void newRecruits() {

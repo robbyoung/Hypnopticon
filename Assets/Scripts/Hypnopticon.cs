@@ -12,8 +12,8 @@ public class Hypnopticon : MonoBehaviour {
 	void Start () {
         unitCount = new List<int>();
         storyMode = false;
-        nextConvo = "intro";
-        nextBattle = "intro";
+        nextConvo = "Random";
+        nextBattle = "Random";
         unitCount.Add(0);
         unitCount.Add(0);
         unitCount.Add(0);

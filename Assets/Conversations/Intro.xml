@@ -1,6 +1,6 @@
 <dialogue>
   <setup>1</setup>
-  <next>Woods</next>
+  <next>Random</next>
   <line>
     <pic>0</pic>
     <side>l</side>

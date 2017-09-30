@@ -1,0 +1,10 @@
+1
+-3 3 2 down
+main: ENF attack ENL attack ENR attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDA main attack: ENF ATK ENL ATL ENR ATR main remember: SEE main seekFront: MOV main seekBack: FLP main seekLeft: MVL main seekRight: MVR main IHT: ENF ENF RTN ENR RTN ENL RTN MOV RTN
+2
+-1 3 2 down
+main: ESP attack BLR moveLeft MVR main attack: RAT RLD main moveLeft: BLL rand MVL main rand: RDM main
+0
+1 3 2 down
+main: ENF attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDM main remember: SEE main attack: ATK main seekFront: MOV main seekLeft: LFT main seekRight: RGT main seekBack: FLP main IHT: ENF attack MOV RTN
+1834703105

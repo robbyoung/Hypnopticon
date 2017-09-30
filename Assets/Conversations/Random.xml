@@ -1,0 +1,9 @@
+<dialogue>
+  <setup>1</setup>
+  <next>Random</next>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Here come some more bandits!</speech>
+  </line>
+</dialogue>
