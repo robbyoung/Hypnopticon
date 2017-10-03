@@ -41,8 +41,14 @@ public class Button : MonoBehaviour {
     }
 
     public void changeCharacterType(int index) {
+        GameMaster.obstacleMenu = false;
         GameMaster.currentType = index;
     }
+
+    public void changeObstacleType(int index) {
+        GameMaster.obstacleMenu = true;
+        GameMaster.currentObstacleType = index;
+    } 
 
     public void clearField() {
         GameMaster.deleteAllCharacters();

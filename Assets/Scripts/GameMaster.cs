@@ -18,24 +18,30 @@ public class GameMaster : MonoBehaviour {
     public static Transform BloodAnimation;
     public static Transform SpottedAnimation;
     public static int currentType;
-    public static List<Transform> prefabs;
-    public List<Transform> characterPrefabs;
+    public static int currentObstacleType;
+    public static Transform[] prefabs;
+    public static Transform[] obstaclePrefabs;
     private static string[] loading;
     private static int seed;
     public static bool win;
+    public static bool obstacleMenu;
+    private static List<Obstacle> obstacles;
 
     // Use this for initialization
     void Start() {
+        obstacleMenu = false;
         win = false;
         GameMaster.fps = 16;
         myField = fieldObject.GetComponent<Field>();
+        obstacles = new List<Obstacle>();
         characters = new List<Character>();
         started = false;
         loop = true;
         BloodAnimation = BloodPrefab;
         SpottedAnimation = SpottedPrefab;
         currentType = 0;
-        prefabs = characterPrefabs;
+        prefabs = myField.characterPrefabs;
+        obstaclePrefabs = myField.obstaclePrefabs;
         loading = null;
         seed = (int)long.Parse(System.DateTime.Now.ToString("yyyyMMddHHmmss"));
         if (Hypnopticon.storyMode) {
@@ -49,9 +55,17 @@ public class GameMaster : MonoBehaviour {
     // Update is called once per frame
     void LateUpdate() {
         if(loading != null) {
+            int obstacleCount = 0;
             for (int i = 0; i < loading.Length - 2; i += 3) {
-                characters[i/3].import(loading[i + 1]);
-                characters[i/3].GetComponent<HypnoScript>().addToScript(loading[i + 2]);
+                //This will be ok as long as obstacles are all listed after the characters.
+                if (loading[i].Equals("o")) {
+                    obstacles[obstacleCount].import(loading[i + 2]);
+                    obstacleCount++;
+                }
+                else {
+                    characters[i / 3].import(loading[i + 1]);
+                    characters[i / 3].GetComponent<HypnoScript>().addToScript(loading[i + 2]);
+                }
             }
             loading = null;
         }
@@ -63,6 +77,10 @@ public class GameMaster : MonoBehaviour {
 
     public static void addCharacter(Character newCharacter) {
         characters.Add(newCharacter);
+    }
+
+    public static void addObstacle(Obstacle newObstacle) {
+        obstacles.Add(newObstacle);
     }
 
     public static GameObject objectAtSpace(int x, int y) {
@@ -104,6 +122,11 @@ public class GameMaster : MonoBehaviour {
         }
         for (i = 0; i < characters.Count; i++) {
             if(characters[i].getX() == x && characters[i].getY() == y && characters[i].alive) {
+                return false;
+            }
+        }
+        for (i = 0; i < obstacles.Count; i++) {
+            if (obstacles[i].getX() == x && obstacles[i].getY() == y) {
                 return false;
             }
         }
@@ -256,6 +279,14 @@ public class GameMaster : MonoBehaviour {
             Destroy(characters[i].gameObject);
             characters.RemoveAt(i);
         }
+        deleteAllObstacles();
+    }
+
+    public static void deleteAllObstacles() {
+        for (int i = obstacles.Count - 1; i >= 0; i--) {
+            Destroy(obstacles[i].gameObject);
+            obstacles.RemoveAt(i);
+        }
     }
 
     public static void animate(string type, float x, float y, float z) {
@@ -279,6 +310,9 @@ public class GameMaster : MonoBehaviour {
         for(int i = 0; i < characters.Count; i++) {
             temp = temp + characters[i].export();
         }
+        for(int i = 0; i < obstacles.Count; i++) {
+            temp = temp + obstacles[i].export();
+        }
         temp = temp + seed;
         return temp;
     }
@@ -286,11 +320,18 @@ public class GameMaster : MonoBehaviour {
     public static void importScenario(string scenario) {
         resetGame();
         deleteAllCharacters();
+        deleteAllObstacles();
         string[] info = scenario.Split('\n');
         int i;
         for(i = 0; i < info.Length-2; i += 3) {
-            Transform temp = Instantiate(prefabs[int.Parse(info[i])]);
-            characters.Add(temp.GetComponent<Character>());
+            if (info[i].Equals("o")) {
+                Transform temp = Instantiate(obstaclePrefabs[int.Parse(info[i+1])]);
+                obstacles.Add(temp.GetComponent<Obstacle>());
+            }
+            else {
+                Transform temp = Instantiate(prefabs[int.Parse(info[i])]);
+                characters.Add(temp.GetComponent<Character>());
+            }
         }
         seed = int.Parse(info[i]);
         loading = info;

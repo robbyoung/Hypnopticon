@@ -12,6 +12,7 @@ public class Field : MonoBehaviour {
     private int size = 1;
     private Transform[,] squares;
     public Transform[] characterPrefabs;
+    public Transform[] obstaclePrefabs;
 
     void Start() {
         squares = new Transform[columns, rows];
@@ -28,10 +29,17 @@ public class Field : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode || Hypnopticon.unitCount[GameMaster.currentType] > 0)) {
-            int x = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
-            int y = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-            if(GameMaster.spaceIsClear(x, y)) {
+        //Clean this up please
+        int x = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).x);
+        int y = (int)Math.Round(Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        if (GameMaster.obstacleMenu && Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && !Hypnopticon.storyMode) {
+            if (GameMaster.spaceIsClear(x, y)) {
+                Transform obstacle = Instantiate(obstaclePrefabs[GameMaster.currentObstacleType]);
+                obstacle.position = new Vector3(x, y + 0.1f, -2);
+                GameMaster.addObstacle(obstacle.gameObject.GetComponent<Obstacle>());
+            }
+        }else if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode || Hypnopticon.unitCount[GameMaster.currentType] > 0)) {            
+            if (GameMaster.spaceIsClear(x, y)) {
                 Transform character = Instantiate(characterPrefabs[GameMaster.currentType]);
                 character.position = new Vector3(x, y + 0.1f, -2);
                 GameMaster.addCharacter(character.gameObject.GetComponent<Character>());
