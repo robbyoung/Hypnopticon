@@ -115,6 +115,15 @@ public class GameMaster : MonoBehaviour {
         return false;
     }
 
+    public static bool obstacleAtSpace(int x, int y) {
+        for (int i = 0; i < obstacles.Count; i++) {
+            if (obstacles[i].getX() == x && obstacles[i].getY() == y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static bool spaceIsClear(int x, int y) {
         int i;
         if (x > endColumn() || x < startColumn() || y > startRow() || y < endRow()) {
@@ -264,6 +273,11 @@ public class GameMaster : MonoBehaviour {
     public static void deleteCharacters() {
         for(int i = characters.Count-1; i >= 0; i--) {
             if (characters[i].isSelected()) {
+                if (Hypnopticon.storyMode && characters[i].team == 1) {
+                    Hypnopticon.unitCount[characters[i].type]++;
+                }else if (Hypnopticon.storyMode) {
+                    return;
+                }
                 characters[i].GetComponent<CharacterAnimation>().deleteBars();
                 characters[i].Deselect();
                 Destroy(characters[i].gameObject);
@@ -274,6 +288,9 @@ public class GameMaster : MonoBehaviour {
 
     public static void deleteAllCharacters() {
         for (int i = characters.Count - 1; i >= 0; i--) {
+            if (Hypnopticon.storyMode && characters[i].team == 1) {
+                Hypnopticon.unitCount[characters[i].type]++;
+            }
             characters[i].GetComponent<CharacterAnimation>().deleteBars();
             characters[i].Deselect();
             Destroy(characters[i].gameObject);
@@ -356,6 +373,7 @@ public class GameMaster : MonoBehaviour {
 
     public static void randomScenario() {
         List<string> scripts = new List<string>();
+        int[,] grid = new int[9, 9];
         scripts.Add("main: ENF attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDM main remember: SEE main attack: ATK main seekFront: MOV main seekLeft: LFT main seekRight: RGT main seekBack: FLP main IHT: ENF attack MOV RTN");
         scripts.Add("main: ENF attack ENL attack ENR attack TAF seekFront TAB seekBack TAL seekLeft TAR seekRight ESP remember RDA main attack: ENF ATK ENL ATL ENR ATR main remember: SEE main seekFront: MOV main seekBack: FLP main seekLeft: MVL main seekRight: MVR main IHT: ENF ENF RTN ENR RTN ENL RTN MOV RTN");
         scripts.Add("main: ESP attack BLR moveLeft MVR main attack: RAT RLD main moveLeft: BLL rand MVL main rand: RDM main");
@@ -364,11 +382,29 @@ public class GameMaster : MonoBehaviour {
             File.Delete(fileName);
         }
         var sr = File.CreateText(fileName);
-        for (int i = 0; i < 3; i++) {
+        int quantity = (int)(random() * 3) + 2;
+        for (int i = 0; i < quantity; i++) {
             int type = (int)(random() * 3);
-            sr.WriteLine(type + "");
-            sr.WriteLine((-3 + 2 * i) + " 3 2 down");
-            sr.WriteLine(scripts[type] + "");
+            int x = (int)(random() * 9 - 4);
+            int y = (int)(random() * 3 + 2);
+            if (grid[x + 4, y + 4] == 0) {
+                sr.WriteLine(type + "\n" + x + " " + y + " 2 down\n" + scripts[type]);
+                grid[x + 4, y + 4]++;
+            }else {
+                i--;
+            }
+        }
+        quantity = (int)(random() * 20) + 2;
+        for (int i = 0; i < quantity; i++) {
+            int x = (int)(random() * 9) - 4;
+            int y = (int)(random() * 9) - 4;
+            if(grid[x + 4, y + 4] == 0) {
+                int type = (int)(random() * 2);
+                sr.WriteLine("o\n" + type + "\n" + x + " " + y);
+                grid[x + 4, y + 4]++;
+            }else {
+                i--;
+            }
         }
         sr.WriteLine((int)long.Parse(System.DateTime.Now.ToString("yyyyMMddHHmmss")) + "");
         sr.Close();

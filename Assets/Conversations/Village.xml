@@ -1,0 +1,14 @@
+<dialogue>
+  <setup>1</setup>
+  <next>Random</next>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Enough hiding! It's time to avenge my family!</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>We march on the village immediately!</speech>
+  </line>
+</dialogue>

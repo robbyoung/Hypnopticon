@@ -1,0 +1,40 @@
+2
+0 2 2 down
+main:  ESP  attack  BLR  moveLeft  MVR  main attack:  RAT  RLD  main moveLeft:  BLL  rand  MVL  main rand:  RDM  main 
+2
+-3 4 2 down
+main:  ESP  attack  BLR  moveLeft  MVR  main attack:  RAT  RLD  main moveLeft:  BLL  rand  MVL  main rand:  RDM  main 
+0
+3 3 2 down
+main:  ENF  attack  TAF  seekFront  TAB  seekBack  TAL  seekLeft  TAR  seekRight  ESP  remember  RDM  main remember:  SEE  main attack:  ATK  main seekFront:  MOV  main seekLeft:  LFT  main seekRight:  RGT  main seekBack:  FLP  main IHT:  ENF  attack  MOV  RTN 
+2
+0 3 2 down
+main:  ESP  attack  BLR  moveLeft  MVR  main attack:  RAT  RLD  main moveLeft:  BLL  rand  MVL  main rand:  RDM  main 
+o
+0
+-2 0
+o
+1
+-4 0
+o
+0
+4 2
+o
+0
+2 2
+o
+0
+2 3
+o
+1
+1 0
+o
+0
+0 -3
+o
+1
+-4 4
+o
+0
+-3 -3
+1841671434

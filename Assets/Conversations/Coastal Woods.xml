@@ -1,0 +1,19 @@
+<dialogue>
+  <setup>1</setup>
+  <next>Random</next>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>I should move deeper into the woods, just to be safe.</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Wait - are those voices?</speech>
+  </line>
+  <line>
+    <pic>0</pic>
+    <side>l</side>
+    <speech>Why would bandits look for me this far out?</speech>
+  </line>
+</dialogue>

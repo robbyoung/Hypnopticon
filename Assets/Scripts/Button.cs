@@ -10,6 +10,8 @@ public class Button : MonoBehaviour {
 
     //public InputField saveText;
     public GameObject menuScreen;
+    public GameObject charMenu;
+    public GameObject obsMenu;
 
     public void startGame() {
         GameMaster.startGame();
@@ -40,6 +42,13 @@ public class Button : MonoBehaviour {
         SceneManager.LoadScene("Conversation");
     }
 
+    public void goToMap() {
+        Hypnopticon.location = Hypnopticon.nextLocation;
+        Hypnopticon.neighbours = Hypnopticon.nextNeighbours;
+        Hypnopticon.storyMode = true;
+        SceneManager.LoadScene("Map");
+    }
+
     public void changeCharacterType(int index) {
         GameMaster.obstacleMenu = false;
         GameMaster.currentType = index;
@@ -64,6 +73,16 @@ public class Button : MonoBehaviour {
 
     public void resume() {
         menuScreen.SetActive(false);
+    }
+
+    public void switchToObs() {
+        obsMenu.SetActive(true);
+        charMenu.SetActive(false);
+    }
+
+    public void switchToChar() {
+        obsMenu.SetActive(false);
+        charMenu.SetActive(true);
     }
 
     public InputField saveText;

@@ -89,19 +89,26 @@
     <Compile Include="Assets\Scripts\HypnoScript.cs" />
     <Compile Include="Assets\Scripts\Hypnopticon.cs" />
     <Compile Include="Assets\Scripts\Indiemation.cs" />
+    <Compile Include="Assets\Scripts\MapSpace.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Textbox.cs" />
     <Compile Include="Assets\Scripts\TitleScreen.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Conversations\Coastal Woods.xml" />
     <None Include="Assets\Conversations\I Miss You.xml" />
     <None Include="Assets\Conversations\Intro.xml" />
     <None Include="Assets\Conversations\Random.xml" />
+    <None Include="Assets\Conversations\Village.xml" />
     <None Include="Assets\Conversations\Woods.xml" />
     <None Include="Assets\Fonts\Documentation\JazzCreateAltKeys_BubbleFont.txt" />
     <None Include="Assets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\HypScripts\basic.txt" />
+    <None Include="Assets\Scenarios\Random.txt" />
+    <None Include="Assets\Scenarios\Village.txt" />
+    <None Include="Assets\Scenarios\intro.txt" />
     <None Include="Assets\Scenarios\test.txt" />
+    <None Include="Assets\Scenarios\test2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

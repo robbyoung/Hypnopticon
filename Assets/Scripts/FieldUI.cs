@@ -88,8 +88,8 @@ public class FieldUI : MonoBehaviour {
             hideScripting();
         }
 
-        if (Input.GetKeyDown(KeyCode.Delete) && selected.Count > 0 && !Hypnopticon.storyMode) {
-            if(GameMaster.started) {
+        if (Input.GetKeyDown(KeyCode.Delete) && selected.Count > 0) {
+            if(GameMaster.started && !Hypnopticon.storyMode) {
                 for (int i = 0; i < selected.Count; i++) {
                     selected[i].GetComponent<Character>().die(10000, false);
                 }
@@ -161,6 +161,16 @@ public class FieldUI : MonoBehaviour {
                 }
             }
         }
+
+        //For testing Random scenario gen
+        /*if (Input.GetKeyDown(KeyCode.R)) {
+            for (int i = 0; i < selected.Count; i++) {
+                selected[i].GetComponent<Character>().Deselect();
+            }
+            selected = new List<GameObject>();
+            GameMaster.randomScenario();
+            GameMaster.loadScenario("Random");
+        }*/
         if (Input.GetKeyDown(KeyCode.Alpha4)) {
             if (selected.Count == 0) {
                 selected = GameMaster.selectTeam(4);
@@ -192,7 +202,7 @@ public class FieldUI : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Space)) {
                 GameMaster.newRecruits();
                 Hypnopticon.nextBattle = Hypnopticon.nextConvo;
-                SceneManager.LoadScene("Conversation");
+                SceneManager.LoadScene("Map");
             }
             winText.SetActive(true);
         }

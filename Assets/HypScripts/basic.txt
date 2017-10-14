@@ -32,3 +32,6 @@ main: ESP attack BLR moveLeft MVR main attack: RAT RLD main moveLeft: BLL rand M
 For the "Woods" level:
 main: ENR attack MOV main attack: ATR main
 main: ENF attack MOV main main: attack: ATK main
+
+For the Village showdown
+main: ENF attackFront ENR attackRight ENL attackLeft IDL main attackFront: ATK main attackRight: RGT ATK main attackLeft LFT ATK main

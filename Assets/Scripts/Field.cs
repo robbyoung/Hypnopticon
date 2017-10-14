@@ -38,7 +38,7 @@ public class Field : MonoBehaviour {
                 obstacle.position = new Vector3(x, y + 0.1f, -2);
                 GameMaster.addObstacle(obstacle.gameObject.GetComponent<Obstacle>());
             }
-        }else if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode || Hypnopticon.unitCount[GameMaster.currentType] > 0)) {            
+        }else if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode || (Hypnopticon.unitCount[GameMaster.currentType] > 0 && y < 0))) {            
             if (GameMaster.spaceIsClear(x, y)) {
                 Transform character = Instantiate(characterPrefabs[GameMaster.currentType]);
                 character.position = new Vector3(x, y + 0.1f, -2);

@@ -163,7 +163,7 @@ public class HypnoScript : MonoBehaviour {
         for (i = 0; i < actions.Count; i++) {
             commands = commands + actions[i][0];
             for (int j = 1; j < actions[i].Count; j++) {
-                commands = commands + "  " + actions[i][j];
+                commands = commands + " " + actions[i][j];
             }
             commands = commands + " ";
         }
@@ -309,7 +309,7 @@ public class HypnoScript : MonoBehaviour {
                 return "malfunction";
             }else {
                 int [] coords = getFront();
-                while (GameMaster.withinField(coords[0], coords[1]) && target == null && !GameMaster.allyAtSpace(coords[0], coords[1], getTeam())) {
+                while (GameMaster.withinField(coords[0], coords[1]) && target == null && !GameMaster.allyAtSpace(coords[0], coords[1], getTeam()) && !GameMaster.obstacleAtSpace(coords[0], coords[1])) {
                     if (GameMaster.enemyAtSpace(coords[0], coords[1], getTeam())) {
                             target = GameMaster.objectAtSpace(coords[0], coords[1]).GetComponent<Character>();
                     }else {
