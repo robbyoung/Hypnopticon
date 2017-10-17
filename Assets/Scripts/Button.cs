@@ -107,5 +107,9 @@ public class Button : MonoBehaviour {
         resume();
     }
 
+    public void toggleObject(GameObject onOff) {
+        onOff.SetActive(!onOff.activeInHierarchy);
+    }
+
 
 }

@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\HypnoScript.cs" />
     <Compile Include="Assets\Scripts\Hypnopticon.cs" />
     <Compile Include="Assets\Scripts\Indiemation.cs" />
+    <Compile Include="Assets\Scripts\Instructions.cs" />
     <Compile Include="Assets\Scripts\MapSpace.cs" />
     <Compile Include="Assets\Scripts\Obstacle.cs" />
     <Compile Include="Assets\Scripts\Textbox.cs" />
