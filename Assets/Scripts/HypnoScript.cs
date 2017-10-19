@@ -17,6 +17,7 @@ public class HypnoScript : MonoBehaviour {
     private int loopCheck;
     public string[] moveset;
     private string characterCommand;
+    private bool safeLeft, safeRight, safeFront, safeBack;
 
 	// Use this for initialization
 	void Start () {
@@ -687,6 +688,33 @@ public class HypnoScript : MonoBehaviour {
             nest.Add(getSubNum(keyword + ":"));
             indices.Add(1);
         }
+    }
+
+    //Check surroundings should be called at the end of a turn.
+    public void checkSurroundings() {
+        safeFront = !checkCondition("ENF");
+        safeLeft = !checkCondition("ENL");
+        safeRight = !checkCondition("ENR");
+        //safeBack = !checkCondition("ENB");
+    }
+
+    //This is called at the start of the next turn to respond to appeared enemies.
+    public void enemyAppeared() {
+        if (checkCondition("ENF") && safeFront) {
+            Debug.Log("Enemy in front!");
+            interrupt("EAF");
+        }
+        else if (checkCondition("ENL") && safeLeft) {
+            Debug.Log("Enemy to left!");
+            interrupt("EAL");
+        }
+        else if (checkCondition("ENR") && safeRight) {
+            Debug.Log("Enemy to right!");
+            interrupt("EAR");
+        }/*
+        if (checkCondition("ENF") && safeFront) {
+            interrupt("EAF");
+        }*/
     }
 
     public bool inMoveset(string move) {

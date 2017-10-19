@@ -50,6 +50,7 @@ public class Character : MonoBehaviour {
     }
 
     public string nextState() {
+        GetComponent<HypnoScript>().enemyAppeared();
         string newState = GetComponent<HypnoScript>().getNextAction();
         setAction(newState);
         return newState;

@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 495}
   m_MaxSize: {x: 14004, y: 14045}
   vertical: 0
-  controlID: 11214
+  controlID: 2097
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 495}
   m_MaxSize: {x: 10002, y: 14045}
   vertical: 1
-  controlID: 11215
+  controlID: 2098
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 11216
+  controlID: 2099
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -365,9 +365,9 @@ MonoBehaviour:
     height: 335
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 70eaffff
-    m_LastClickedID: -5520
-    m_ExpandedIDs: 68e3ffff70eaffffb8ebffffc4f2ffff2af6ffffe4fbffff0000000068280000ba28000090290000962a0000262d0000222e0000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: e4fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -527,19 +527,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Sprites
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Sprites
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\rober\Documents\Hypnopticon
   m_IsLocked: 1
   m_FolderTreeState:
     scrollPos: {x: 0, y: 3}
-    m_SelectedIDs: ce260000
-    m_LastClickedID: 9934
-    m_ExpandedIDs: 00000000d02400008026000000ca9a3bffffff7f
+    m_SelectedIDs: 8a260000
+    m_LastClickedID: 9866
+    m_ExpandedIDs: 00000000d02400008a26000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -567,7 +567,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 94250000
     m_LastClickedID: 9620
-    m_ExpandedIDs: 00000000d02400008026000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000d02400008a26000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: de2300001e3000002c260000000000004e660000566600006a2500001c3500003a270000662b0000562b000042290000082400000c24000014260000d42300007e530000182600001c3d00008c2800007e260000c2260000be2600005e270000e426000056e6ffff
     m_RenameOverlay:
       m_UserAcceptedRename: 0

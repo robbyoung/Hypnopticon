@@ -93,6 +93,7 @@ public class CharacterAnimation : MonoBehaviour {
             int frameIndex = (int)(timeSinceAnimStart * framesPerSecond);
             if (frameIndex < currentAnim.Length && timeAtAnimStart != -69) {
                 if (moving && character.alive) {
+                    GetComponent<HypnoScript>().checkSurroundings();
                     GameMaster.nextPlayer();
                     moving = false;
                 }
@@ -204,6 +205,7 @@ public class CharacterAnimation : MonoBehaviour {
                     }
 
                     if (!idle) {
+                        GetComponent<HypnoScript>().checkSurroundings();
                         GameMaster.nextPlayer();
                     }
                     moving = true;
@@ -266,6 +268,8 @@ public class CharacterAnimation : MonoBehaviour {
     public void setIdle(bool isIdle) {
         if (character.alive) {
             idle = isIdle;
+            if (!isIdle) {
+            }
         }else {
             GameMaster.nextPlayer();
         }

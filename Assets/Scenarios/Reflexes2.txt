@@ -1,0 +1,7 @@
+1
+-3 2 1 right
+main: IDL main EAL: ATK ATL RTN 
+1
+-2 0 2 up
+main: MOV main EAL: ATL RTN 
+1852793924

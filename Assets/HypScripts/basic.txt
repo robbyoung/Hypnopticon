@@ -27,6 +27,8 @@ main: ENF attack ENL attack ENR attack TAF seekFront TAB seekBack TAL seekLeft T
 Decent Archer Script:
 main: ESP attack BLR moveLeft MVR main attack: RAT RLD main moveLeft: BLL rand MVL main rand: RDM main
 
+Testing out EAF, EAR, and EAL (for man at arms)
+main: IDL main EAF: ATK RTN EAR: ATR RTN EAL: ATL RTN
 
 
 For the "Woods" level:

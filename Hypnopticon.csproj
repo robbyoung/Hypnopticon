@@ -106,6 +106,8 @@
     <None Include="Assets\Fonts\Documentation\JazzCreateBubble_VersionHistory_1.1.txt" />
     <None Include="Assets\HypScripts\basic.txt" />
     <None Include="Assets\Scenarios\Random.txt" />
+    <None Include="Assets\Scenarios\Reflexes.txt" />
+    <None Include="Assets\Scenarios\Reflexes2.txt" />
     <None Include="Assets\Scenarios\Village.txt" />
     <None Include="Assets\Scenarios\intro.txt" />
     <None Include="Assets\Scenarios\test.txt" />

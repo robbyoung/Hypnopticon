@@ -1,0 +1,13 @@
+1
+-3 2 1 right
+main: IDL main EAF: ATK RTN EAR: ATR RTN EAL: ATL RTN 
+1
+2 1 2 left
+main: MOV main 
+1
+0 3 2 left
+main: MOV main 
+1
+4 2 2 left
+main: MOV main 
+1852793095
