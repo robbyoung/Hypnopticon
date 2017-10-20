@@ -93,7 +93,6 @@ public class CharacterAnimation : MonoBehaviour {
             int frameIndex = (int)(timeSinceAnimStart * framesPerSecond);
             if (frameIndex < currentAnim.Length && timeAtAnimStart != -69) {
                 if (moving && character.alive) {
-                    GetComponent<HypnoScript>().checkSurroundings();
                     GameMaster.nextPlayer();
                     moving = false;
                 }
@@ -205,7 +204,6 @@ public class CharacterAnimation : MonoBehaviour {
                     }
 
                     if (!idle) {
-                        GetComponent<HypnoScript>().checkSurroundings();
                         GameMaster.nextPlayer();
                     }
                     moving = true;

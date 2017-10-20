@@ -691,7 +691,8 @@ public class HypnoScript : MonoBehaviour {
     }
 
     //Check surroundings should be called at the end of a turn.
-    public void checkSurroundings() {
+    public void postTurn() {
+        //Debug.Log(character.getX() + "/" + character.getY() + " post-turn check.");
         safeFront = !checkCondition("ENF");
         safeLeft = !checkCondition("ENL");
         safeRight = !checkCondition("ENR");
@@ -699,7 +700,8 @@ public class HypnoScript : MonoBehaviour {
     }
 
     //This is called at the start of the next turn to respond to appeared enemies.
-    public void enemyAppeared() {
+    public void preTurn() {
+        //Debug.Log(character.getX() + "/" + character.getY() + " pre-turn check.");
         if (checkCondition("ENF") && safeFront) {
             Debug.Log("Enemy in front!");
             interrupt("EAF");

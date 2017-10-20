@@ -1,6 +1,6 @@
 1
 -3 2 1 right
-main: IDL main EAL: ATK ATL RTN 
+main: IDL main EAL: ATK ATL RTN EAF: ATK RTN 
 1
 -2 0 2 up
 main: MOV main EAL: ATL RTN 

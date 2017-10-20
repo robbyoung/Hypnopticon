@@ -50,7 +50,7 @@ public class Character : MonoBehaviour {
     }
 
     public string nextState() {
-        GetComponent<HypnoScript>().enemyAppeared();
+        GetComponent<HypnoScript>().preTurn();
         string newState = GetComponent<HypnoScript>().getNextAction();
         setAction(newState);
         return newState;
@@ -212,6 +212,9 @@ public class Character : MonoBehaviour {
         }
 
         frame++;
+        if(frame >= 10) {
+            GetComponent<HypnoScript>().postTurn();
+        }
         if(frame < frameToMeet) {
             performAction(frameToMeet);
         }
