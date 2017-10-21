@@ -23,6 +23,8 @@ public class Hypnopticon : MonoBehaviour {
         nextNeighbours = new List<string>();
         nextNeighbours.Add("Coastal Woods");
         nextNeighbours.Add("Village");
+        location = nextLocation;
+        neighbours = nextNeighbours;
         unitCount.Add(1);
         unitCount.Add(0);
         unitCount.Add(0);
