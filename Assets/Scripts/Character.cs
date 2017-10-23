@@ -24,11 +24,16 @@ public class Character : MonoBehaviour {
     float displacedX, displacedY;
     public int team;
     public int type;
+    public string unitName;
+    public string script;
 
     private int originalX;
     private int originalY;
 
 	void Start () {
+        if (unitName == null || unitName.Equals("")) {
+            unitName = "?";
+        }
         selectionCircle = null;
         team = 1;
         health = maxHealth;
@@ -41,6 +46,7 @@ public class Character : MonoBehaviour {
         originalY = getY();
         selectionCircle = null;
         displacedX = 0; displacedY = 0;
+        script = null;
     }
 
     void Update () {
@@ -330,5 +336,29 @@ public class Character : MonoBehaviour {
         string exp = type + "\n" + getX() + " " + getY() + " " + team + " " + GetComponent<HypnoScript>().getDirection() + "\n" ;
         exp = exp + GetComponent<HypnoScript>().getCommandString() + "\n";
         return exp;
+    }
+
+
+    public void importHusk(CharacterHusk husk) {
+        attack = husk.attack;
+        defense = husk.defense;
+        speed = husk.speed;
+        unitName = husk.unitName;
+        //For the hypnoscript to use when it starts up??
+        script = husk.script;
+        //GetComponent<HypnoScript>().addToScript(husk.script);
+    }
+
+    public CharacterHusk exportHusk() {
+        CharacterHusk husk;
+        husk = new CharacterHusk(unitName, type);
+        husk.attack = attack;
+        husk.defense = defense;
+        husk.speed = speed;
+        if (team == 1) {
+            husk.script = GetComponent<HypnoScript>().getCommandString();
+        }
+        //Debug.Log("Hi, I'm " + husk.unitName + " and I am a " + husk.type + "/" + husk.typeInt + " with " + husk.attack + ", " + husk.defense + ", " + husk.speed + "!");
+        return husk;
     }
 }

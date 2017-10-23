@@ -38,13 +38,18 @@ public class Field : MonoBehaviour {
                 obstacle.position = new Vector3(x, y + 0.1f, -2);
                 GameMaster.addObstacle(obstacle.gameObject.GetComponent<Obstacle>());
             }
-        }else if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode || (Hypnopticon.unitCount[GameMaster.currentType] > 0 && y < 0))) {            
+        }else if (Input.GetKeyDown(KeyCode.Mouse1) && !GameMaster.started && (!Hypnopticon.storyMode ||  y < 0)) {            
             if (GameMaster.spaceIsClear(x, y)) {
-                Transform character = Instantiate(characterPrefabs[GameMaster.currentType]);
-                character.position = new Vector3(x, y + 0.1f, -2);
-                GameMaster.addCharacter(character.gameObject.GetComponent<Character>());
-                if (Hypnopticon.storyMode) {
-                    Hypnopticon.unitCount[GameMaster.currentType]--;
+                if (!Hypnopticon.storyMode) {
+                    Transform character = Instantiate(characterPrefabs[GameMaster.currentType]);
+                    character.position = new Vector3(x, y + 0.1f, -2);
+                    GameMaster.addCharacter(character.gameObject.GetComponent<Character>());
+                }else if(Hypnopticon.units.Count > 0) {
+                    Transform character = Instantiate(characterPrefabs[Hypnopticon.units[0].typeInt]);
+                    character.gameObject.GetComponent<Character>().importHusk(Hypnopticon.units[0]);
+                    character.position = new Vector3(x, y + 0.1f, -2);
+                    GameMaster.addCharacter(character.gameObject.GetComponent<Character>());
+                    Hypnopticon.units.RemoveAt(0);
                 }
                 //print(x + "-> X: " + character.GetComponent<Character>().getX() + ", " + (int)(y + 0.1f) + " -> Y: " + character.GetComponent<Character>().getY());
             }

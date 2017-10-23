@@ -274,7 +274,7 @@ public class GameMaster : MonoBehaviour {
         for(int i = characters.Count-1; i >= 0; i--) {
             if (characters[i].isSelected()) {
                 if (Hypnopticon.storyMode && characters[i].team == 1) {
-                    Hypnopticon.unitCount[characters[i].type]++;
+                    Hypnopticon.units.Add(characters[i].exportHusk());
                 }else if (Hypnopticon.storyMode) {
                     return;
                 }
@@ -289,7 +289,7 @@ public class GameMaster : MonoBehaviour {
     public static void deleteAllCharacters() {
         for (int i = characters.Count - 1; i >= 0; i--) {
             if (Hypnopticon.storyMode && characters[i].team == 1) {
-                Hypnopticon.unitCount[characters[i].type]++;
+                Hypnopticon.units.Add(characters[i].exportHusk());
             }
             characters[i].GetComponent<CharacterAnimation>().deleteBars();
             characters[i].Deselect();
@@ -413,8 +413,12 @@ public class GameMaster : MonoBehaviour {
     public static void newRecruits() {
         for(int i = 0; i < characters.Count; i++) {
             if(characters[i].team != 1 || (characters[i].team == 1 && characters[i].alive)) {
-                Hypnopticon.unitCount[characters[i].type]++;
+                Hypnopticon.units.Add(characters[i].exportHusk());
             }
+        }
+        string uList = "";
+        for (int i = 0; i < Hypnopticon.units.Count; i++) {
+            uList = uList + " " + i + ": " + Hypnopticon.units[i].unitName;
         }
     }
 }

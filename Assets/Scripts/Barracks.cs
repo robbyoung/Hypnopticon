@@ -13,19 +13,16 @@ public class Barracks: MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        units = new List<CharacterHusk>();
+        units = Hypnopticon.units;
         index = 0;
-        for(int t = 0; t < Hypnopticon.unitCount.Count; t++) {
-            for (int i = 0; i < Hypnopticon.unitCount[t]; i++) {
-                units.Add(new CharacterHusk(t));
-            }
-        }
+        
 
-        if(units.Count == 0) {
+        if(units.Count == 0 || !Hypnopticon.storyMode) {
             gameObject.SetActive(false);
+            gameObject.transform.position = new Vector3(100, 100, 100);
         }else {
             nameBox.text = units[index].unitName;
-            typeBox.text = units[index].type;
+            typeBox.text = units[index].unitInfo();
         }
         
     }
@@ -36,7 +33,7 @@ public class Barracks: MonoBehaviour {
             index = 0;
         }
         nameBox.text = units[index].unitName;
-        typeBox.text = units[index].type;
+        typeBox.text = units[index].unitInfo();
     }
 
     public void previous() {
@@ -45,27 +42,42 @@ public class Barracks: MonoBehaviour {
             index = units.Count - 1;
         }
         nameBox.text = units[index].unitName;
-        typeBox.text = units[index].type;
+        typeBox.text = units[index].unitInfo();
     }
 }
 
 public class CharacterHusk{
-
     public string type;
+    public int attack;
+    public int defense;
+    public int speed;
     public string unitName;
+    public string script;
+    public int typeInt;
 
-    public CharacterHusk(int t) {
-        if(t == 0) {
+    public CharacterHusk(string nname, int t) {
+        unitName = nname;
+        if (nname.Equals("?")) {
+            unitName = randomName();
+        }
+        typeInt = t;
+
+        if (t == 0) {
             type = "Swordsman";
+
         }
         else if (t == 1) {
             type = "Man at Arms";
         }
-        else{
+        else {
             type = "Archer";
         }
 
-        unitName = randomName();
+        attack = 1;
+        defense = 1;
+        speed = 1;
+        script = "";
+        //Debug.Log("HUSK CREATED! NAME: " + unitName + " TYPE: " + type);
     }
 
     public string randomName() {
@@ -76,5 +88,9 @@ public class CharacterHusk{
         names.Add("Minceboy");
         int r = (int)(Random.value * names.Count);
         return names[r];
+    }
+
+    public string unitInfo() {
+        return type + "\n\n" + attack + "\n\n" + defense + "\n\n" + speed;
     }
 }

@@ -11,11 +11,10 @@ public class Hypnopticon : MonoBehaviour {
     public static List<string> neighbours;
     public static List<string> nextNeighbours;
     public static string nextBattle;
-    public static List<int> unitCount;
     public static List<string> presets;
+    public static List<CharacterHusk> units;
 
 	void Start () {
-        unitCount = new List<int>();
         storyMode = false;
         nextConvo = "intro";
         nextBattle = "intro";
@@ -25,8 +24,11 @@ public class Hypnopticon : MonoBehaviour {
         nextNeighbours.Add("Village");
         location = nextLocation;
         neighbours = nextNeighbours;
-        unitCount.Add(1);
-        unitCount.Add(0);
-        unitCount.Add(0);
+
+        units = new List<CharacterHusk>();
+        units.Add(new CharacterHusk("Gordon", 0));
+        units[0].attack = 30;
+        units[0].speed = 1;
+        units[0].defense = 3;
 	}
 }

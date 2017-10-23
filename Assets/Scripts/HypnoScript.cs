@@ -35,9 +35,13 @@ public class HypnoScript : MonoBehaviour {
         nest.Add(0);
         indices.Add(1);
         weaponLoaded = true;
+        if (character.script != null) {
+            addToScript(character.script);
+        }
     }
 
     public void addToScript(string newAction) {
+        if ( newAction == null || newAction.Equals("")) return;
         int subToAdd = 0;
         string[] newActions = newAction.Split(null);
         for (int i = 0; i < newActions.Length; i++) {
@@ -703,15 +707,12 @@ public class HypnoScript : MonoBehaviour {
     public void preTurn() {
         //Debug.Log(character.getX() + "/" + character.getY() + " pre-turn check.");
         if (checkCondition("ENF") && safeFront) {
-            Debug.Log("Enemy in front!");
             interrupt("EAF");
         }
         else if (checkCondition("ENL") && safeLeft) {
-            Debug.Log("Enemy to left!");
             interrupt("EAL");
         }
         else if (checkCondition("ENR") && safeRight) {
-            Debug.Log("Enemy to right!");
             interrupt("EAR");
         }/*
         if (checkCondition("ENF") && safeFront) {

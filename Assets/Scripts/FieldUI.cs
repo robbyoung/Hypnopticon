@@ -18,16 +18,33 @@ public class FieldUI : MonoBehaviour {
     private bool scriptingEnabled;
     private int[] shiftCoords;
 
+    public GameObject sandboxCharBar;
+    public GameObject storyCharBar;
+    public Text storyUnitList;
+
 	// Use this for initialization
 	void Start() {
         menu.SetActive(false);
         scriptingEnabled = false;
         selected = new List<GameObject>();
         shiftCoords = new int[] { 0, 0 };
+        if (Hypnopticon.storyMode) {
+            sandboxCharBar.SetActive(false);
+        }else {
+            storyCharBar.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update() {
+
+        if (Hypnopticon.storyMode) {
+            string uList = "";
+            for(int i = 0; i < Hypnopticon.units.Count; i++) {
+                uList = uList + Hypnopticon.units[i].unitName + "\n";
+            }
+            storyUnitList.text = uList;
+        }
         
         if(GameMaster.characterCount() == 0) {
             selected = new List<GameObject>();
@@ -212,7 +229,7 @@ public class FieldUI : MonoBehaviour {
 
         if (Hypnopticon.storyMode) {
             for (int i = 0; i < unitCounts.Count; i++) {
-                unitCounts[i].text = "" + Hypnopticon.unitCount[i];
+                unitCounts[i].text = "";// + Hypnopticon.unitCount[i];
             }
         }
     }
